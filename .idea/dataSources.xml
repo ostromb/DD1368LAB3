@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="mssostromb@psql-dd1368-ht20.sys.kth.se" uuid="879bf075-7860-4e1f-bd94-689d5bad0ee9">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://psql-dd1368-ht20.sys.kth.se:5432/mssostromb</jdbc-url>
+    </data-source>
+  </component>
+</project>

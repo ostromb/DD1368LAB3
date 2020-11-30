@@ -5,13 +5,18 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.sql.ResultSet;
 
-public class LoginForm {
+public class LoginForm extends JFrame{
     private JPanel panel1;
     private JTextField email_field;
     private JPasswordField password_field;
     private JButton button1;
 
+
     public LoginForm() {
+        getContentPane().add(panel1);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setVisible(true);
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -26,10 +31,16 @@ public class LoginForm {
                     ResultSet rs = st.executeQuery();
                     if(rs.next()) {
                         JOptionPane.showMessageDialog(null,"Login Successful");
+                        Menu frame1 = new Menu();
+                        frame1.setVisible(true);
+                        dispose();
+
+
                     }
                     else {
                         JOptionPane.showMessageDialog(null,"Login failed");
                     }
+
 
 
 
@@ -45,11 +56,8 @@ public class LoginForm {
         });
     }
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Login");
-        frame.setContentPane(new LoginForm().panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        LoginForm frame = new LoginForm();
+
 
 
     }

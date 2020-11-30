@@ -12,6 +12,7 @@ public class LoginForm extends JFrame{
     private JButton button1;
 
 
+
     public LoginForm() {
         getContentPane().add(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,6 +31,9 @@ public class LoginForm extends JFrame{
 
                     ResultSet rs = st.executeQuery();
                     if(rs.next()) {
+                        /**
+                         * loggs user in and opens menu panel
+                         */
                         JOptionPane.showMessageDialog(null,"Login Successful");
                         Menu frame1 = new Menu();
                         frame1.setVisible(true);

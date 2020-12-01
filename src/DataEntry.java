@@ -20,9 +20,10 @@ public class DataEntry {
     }
 
     public void CPtoMF(){
-        //MF = new Menu(infoHolder, connection);
+        MF = new Menu(infoHolder, connection, this);
         CP.setVisible(false);
-        //MF.setVisible(true);
+        MF.setVisible(true);
+        MF.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         CP.dispose();
     }
 
@@ -65,7 +66,6 @@ public class DataEntry {
         private JTextField email_field;
         private JPasswordField password_field;
         private JButton button1;
-
         public LoginForm() {
             setLayout(new FlowLayout());
             setVisible(true);
@@ -81,7 +81,6 @@ public class DataEntry {
             this.add(password_field);
             button1 = new JButton("Login");
             this.add(button1);
-
             button1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -113,13 +112,11 @@ public class DataEntry {
             });
         }
     }
-
     */
 
     /* class ChooseProfile extends JFrame {
         private JButton[] profile_button;
         private ArrayList<String> profile_names;
-
         public void profile_choice() {
             LF.setVisible(false);
             setVisible(true);
@@ -127,13 +124,11 @@ public class DataEntry {
                 PreparedStatement pst = connection.prepareStatement("SELECT * FROM customerprofiles");
                 ResultSet rs = pst.executeQuery();
                 profile_names = new ArrayList<>();
-
                 while (rs.next()) {
                     if(rs.getInt(1) == chosencustomer) {
                         profile_names.add(rs.getString(3));
                     }
                 }
-
                 for (int i=0; i<profile_names.size(); i++) {
                     profile_button[i].setText(profile_names.get(i));
                     add(profile_button[i]);
@@ -141,7 +136,6 @@ public class DataEntry {
             } catch (SQLException ex) {
             }
         }
-
         public ChooseProfile() {
             profile_button = new JButton[3];
             profile_button[0] = new JButton();
@@ -211,7 +205,6 @@ public class DataEntry {
         private JLabel lblDirector;
         private JLabel lblGenre;
         private JLabel lblRating;
-
         public Menu() {
             tabbedPane1.add("Search",pn1);
             tabbedPane1.add("Watchlist",pn2);
@@ -220,7 +213,6 @@ public class DataEntry {
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             pack();
             setVisible(false);
-
             /**searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -235,13 +227,11 @@ public class DataEntry {
             String rating = ratingField.getText();
             String length = lengthField.getText();
             PreparedStatement st = connection.prepareStatement("SELECT *  FROM movies  WHERE name LIKE '%"+name+"%'");
-
             ResultSet rs = st.executeQuery();
             JFrame frame = new JFrame();
             frame.setSize(500, 300);
             JPanel sr = new JPanel();
             JScrollPane srPane = new JScrollPane(sr);
-
             frame.add(srPane);
             frame.setVisible(true);
             if(rs.next()) {

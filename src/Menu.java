@@ -1,4 +1,20 @@
-/* public class Menu extends JFrame {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.sql.Connection;
+
+public class Menu extends JFrame {
+    private Connection connection;
+    private InfoHolder infoHolder;
+    //private JButton[] profile_button;
+    //private ArrayList<String> profile_names;
+    private DataEntry dataEntry;
+
     private JButton searchButton;
     private JPanel MenuPanel = new JPanel();
     private JPanel pn1 = new JPanel();
@@ -22,7 +38,10 @@
     private JLabel lblGenre;
     private JLabel lblRating;
 
-    public Menu() {
+    public Menu(InfoHolder infoHolder, Connection connection, DataEntry dataEntry) {
+        this.infoHolder = infoHolder;
+        this.connection = connection;
+        this.dataEntry = dataEntry;
         tabbedPane1.add("Search",pn1);
         tabbedPane1.add("Watchlist",pn2);
         tabbedPane1.add("Settings",pn3);
@@ -71,5 +90,7 @@
         }
         }
         });
-         }
-*/
+         }*/
+
+    }
+}

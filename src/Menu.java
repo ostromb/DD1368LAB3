@@ -12,7 +12,6 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
             }
         });
     }

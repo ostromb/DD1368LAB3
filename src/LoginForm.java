@@ -27,7 +27,7 @@ public class LoginForm extends JFrame{
                     String pass = password_field.getText();
                     PreparedStatement st = connection.prepareStatement("SELECT email, password  FROM customer WHERE email=? AND password=?");
                     st.setString(1, name);
-                    st.setString(2,pass);
+                    st.setString(2, pass);
 
                     ResultSet rs = st.executeQuery();
                     if(rs.next()) {
@@ -35,27 +35,16 @@ public class LoginForm extends JFrame{
                          * loggs user in and opens menu panel
                          */
                         JOptionPane.showMessageDialog(null,"Login Successful");
-                        Menu frame1 = new Menu();
+                        ChooseProfile frame1 = new ChooseProfile(name, pass);
                         frame1.setVisible(true);
                         dispose();
-
-
                     }
                     else {
                         JOptionPane.showMessageDialog(null,"Login failed");
                     }
-
-
-
-
-
                 }catch(Exception ex) {
                     ex.printStackTrace();
                 }
-
-
-
-
             }
         });
     }

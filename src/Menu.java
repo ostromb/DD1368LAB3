@@ -1,4 +1,4 @@
-public class Menu extends JFrame {
+/* public class Menu extends JFrame {
     private JButton searchButton;
     private JPanel MenuPanel = new JPanel();
     private JPanel pn1 = new JPanel();
@@ -72,3 +72,4 @@ public class Menu extends JFrame {
         }
         });
          }
+*/

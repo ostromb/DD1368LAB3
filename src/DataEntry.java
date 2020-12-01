@@ -6,18 +6,30 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DataEntry {
-    private Connection connection;
     private LoginForm LF;
     private ChooseProfile CP;
     private Menu MF;
-    private int chosencustomer;
-    private String chosenprofile;
+    private InfoHolder infoHolder;
+    private Connection connection;
+
+    public void LFtoCP(){
+        CP = new ChooseProfile(infoHolder, connection, this);
+        LF.setVisible(false);
+        CP.setVisible(true);
+        LF.dispose();
+    }
+
+    public void CPtoMF(){
+        //MF = new Menu(infoHolder, connection);
+        CP.setVisible(false);
+        //MF.setVisible(true);
+        CP.dispose();
+    }
 
     DataEntry() {
         connection = DataEntry.getConnection();
-        LF = new LoginForm();
-        CP = new ChooseProfile();
-        MF = new Menu();
+        infoHolder = new InfoHolder();
+        LF = new LoginForm(infoHolder, connection, this);
     }
 
     public static void main (String[] args) {
@@ -47,6 +59,7 @@ public class DataEntry {
             return connection;
         }
     }
+    /*
     class LoginForm extends JFrame {
         private JLabel mailLabel, passLabel;
         private JTextField email_field;
@@ -101,7 +114,9 @@ public class DataEntry {
         }
     }
 
-    class ChooseProfile extends JFrame {
+    */
+
+    /* class ChooseProfile extends JFrame {
         private JButton[] profile_button;
         private ArrayList<String> profile_names;
 
@@ -165,8 +180,14 @@ public class DataEntry {
                 }
             });
         }
-    }
+    } */
 
+
+    /**
+     * Lägg till en InfoHolder och Connection som privata fält
+     * Dessa ska passeras in genom konstruktorn och sparas i den här klassen
+     * Lägg till dataentry-fält som också ska passeras in >:(
+     *//*
     class Menu extends JFrame {
         private JButton searchButton;
         private JPanel MenuPanel = new JPanel();
@@ -239,7 +260,7 @@ public class DataEntry {
             ex.printStackTrace();
             }
             }
-            });*/
+            });
         }
-    }
+    */
 }

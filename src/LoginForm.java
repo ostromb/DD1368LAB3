@@ -36,7 +36,7 @@ public class LoginForm extends JFrame{
                          */
                         JOptionPane.showMessageDialog(null,"Login Successful");
                         Menu frame1 = new Menu();
-                        frame1.setVisible(true);
+
                         dispose();
 
 

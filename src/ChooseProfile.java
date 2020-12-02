@@ -13,6 +13,7 @@ public class ChooseProfile extends JFrame {
     private InfoHolder infoHolder;
     private JButton[] profile_button;
     private ArrayList<String> profile_names;
+    private ArrayList<Character> userProfiles;
     private DataEntry dataEntry;
 
     public ChooseProfile(InfoHolder infoHolder, Connection connection, DataEntry dataEntry) {
@@ -29,6 +30,7 @@ public class ChooseProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 infoHolder.setProfile(profile_names.get(0));
+                infoHolder.setUserProfile(userProfiles.get(0));
                 dataEntry.CPtoMF();
             }
         });
@@ -36,6 +38,7 @@ public class ChooseProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 infoHolder.setProfile(profile_names.get(1));
+                infoHolder.setUserProfile(userProfiles.get(1));
                 dataEntry.CPtoMF();
             }
         });
@@ -43,6 +46,7 @@ public class ChooseProfile extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 infoHolder.setProfile(profile_names.get(2));
+                infoHolder.setUserProfile(userProfiles.get(2));
                 dataEntry.CPtoMF();
             }
         });
@@ -51,10 +55,12 @@ public class ChooseProfile extends JFrame {
             PreparedStatement pst = connection.prepareStatement("SELECT * FROM customerprofiles");
             ResultSet rs = pst.executeQuery();
             profile_names = new ArrayList<>();
+            userProfiles = new ArrayList<>();
 
             while (rs.next()) {
                 if(rs.getInt(1) == infoHolder.getId()) {
                     profile_names.add(rs.getString(3));
+                    userProfiles.add(rs.getString(2).charAt(0));
                 }
             }
 

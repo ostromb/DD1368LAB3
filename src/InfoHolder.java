@@ -1,10 +1,12 @@
 public class InfoHolder {
     private int id;
     private String profile;
+    private char userProfile;
 
     public InfoHolder() {
         id = 0;
         profile = "";
+        userProfile = 'z';
     }
 
     public boolean hasProfile() {
@@ -13,6 +15,10 @@ public class InfoHolder {
 
     public boolean hasId() {
         return id != 0;
+    }
+
+    public boolean hasUserProfile() {
+        return userProfile != 'z';
     }
 
     public void setId(int id) {
@@ -29,5 +35,13 @@ public class InfoHolder {
 
     public String getProfile() {
         return profile;
+    }
+
+    public void setUserProfile(char userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    public char getUserProfile() {
+        return userProfile;
     }
 }

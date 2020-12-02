@@ -90,6 +90,7 @@ public class Settings extends JPanel{
                         lt1.setInt(1,infoHolder.getId());
                         lt1.setString(2,remname);
                         lt1.executeQuery();
+                        repaint();
                         revalidate();
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
@@ -112,12 +113,17 @@ public class Settings extends JPanel{
 
                     try {
 
-                        PreparedStatement lt1 = connection.prepareStatement("DELETE FROM customerprofiles WHERE customerid = ? AND name = ?");
+
+                        PreparedStatement lt1 = connection.prepareStatement("INSERT INTO customerprofiles (customerid, userprofile, name, birthdate) VALUES (?,?,?, NULL)");
                         lt1.setInt(1,infoHolder.getId());
-
-
+                        lt1.setString(2,"d");
+                        lt1.setString(3,addname);
+                        lt1.executeQuery();
                         repaint();
                         revalidate();
+
+
+
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

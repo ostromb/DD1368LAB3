@@ -2231,7 +2231,7 @@ false posixrules
     <database id="207" parent="1" name="mssostromb">
       <ObjectId>210223</ObjectId>
       <Owner>ostromb</Owner>
-      <IntrospectionStateNumber>11230717</IntrospectionStateNumber>
+      <IntrospectionStateNumber>11274071</IntrospectionStateNumber>
       <Current>1</Current>
       <Relations>sequence|table|289618|289620|1
 sequence|table|266425|266427|1
@@ -3946,7 +3946,7 @@ sequence|table|266425|266427|1
       <Comment>standard public schema</Comment>
       <StateNumber>10600996</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>11230718</IntrospectionStateNumber>
+      <IntrospectionStateNumber>11274072</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="569" parent="207" name="btree">
@@ -4110,12 +4110,9 @@ sequence|table|266425|266427|1
 </Acl>
     </table>
     <table id="593" parent="568" name="subscription">
-      <ObjectId>249269</ObjectId>
+      <ObjectId>379063</ObjectId>
       <Owner>axu</Owner>
-      <StateNumber>10439701</StateNumber>
-      <Acl>16855=arwdDxt/16895
-16895=arwdDxt/16895
-</Acl>
+      <StateNumber>11231356</StateNumber>
     </table>
     <table id="594" parent="568" name="subscriptionduration">
       <ObjectId>243085</ObjectId>
@@ -4554,43 +4551,43 @@ userprofile</ColNames>
     <column id="660" parent="593" name="subscriptionid">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>10439651</StateNumber>
+      <StateNumber>11231356</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="661" parent="593" name="card_number">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>10439651</StateNumber>
+      <StateNumber>11231356</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="662" parent="593" name="card_issue">
       <Position>3</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>10439651</StateNumber>
+      <StateNumber>11231356</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="663" parent="593" name="card_date">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>10439651</StateNumber>
+      <StateNumber>11231356</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="664" parent="593" name="sub_type">
       <Position>5</Position>
       <DataType>varchar|0s</DataType>
-      <StateNumber>10439651</StateNumber>
+      <StateNumber>11231356</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="665" parent="593" name="payment_amount">
       <Position>6</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>10439651</StateNumber>
+      <StateNumber>11231356</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="666" parent="593" name="sub_start">
       <Position>7</Position>
       <DataType>date|0s</DataType>
-      <StateNumber>10439651</StateNumber>
+      <StateNumber>11231356</StateNumber>
       <TypeId>1082</TypeId>
     </column>
     <column id="667" parent="594" name="subscriptinid">

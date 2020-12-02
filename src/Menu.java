@@ -51,47 +51,7 @@ public class Menu extends JFrame {
         pack();
         setVisible(false);
 
-        /**searchButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-        Connection connection = DataEntry.getConnection();
-        try {
-        String name = nameField.getText();
-        String year = yearField.getText();
-        String country = countryField.getText();
-        String director = directorField.getText();
-        String genre = genreField.getText();
-        String actor = actorField.getText();
-        String rating = ratingField.getText();
-        String length = lengthField.getText();
-        PreparedStatement st = connection.prepareStatement("SELECT *  FROM movies  WHERE name LIKE '%"+name+"%'");
 
-        ResultSet rs = st.executeQuery();
-        JFrame frame = new JFrame();
-        frame.setSize(500, 300);
-        JPanel sr = new JPanel();
-        JScrollPane srPane = new JScrollPane(sr);
-
-        frame.add(srPane);
-        frame.setVisible(true);
-        if(rs.next()) {
-        while(rs.next()) {
-        /**
-         * loggs user in and opens menu panel
-        JLabel movielabel = new JLabel(rs.getString("name"));
-        sr.add(movielabel);
-        sr.revalidate();
-        }
-        }
-        else {
-        JOptionPane.showMessageDialog(null,"No search Result");
-        }
-        }catch(Exception ex) {
-        ex.printStackTrace();
-        }
-        }
-        });
-         }*/
 
     }
 }

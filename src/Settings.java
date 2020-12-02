@@ -17,6 +17,7 @@ public class Settings extends JPanel{
         setVisible(true);
         JPanel subs = new JPanel();
         JPanel movies = new JPanel();
+        JPanel centerscreen = new JPanel();
 
         JButton butupdatesub = new JButton("Update Subscription");
         JLabel lblsubs = new JLabel("Manage Subscription");
@@ -34,8 +35,9 @@ public class Settings extends JPanel{
         JTextField addfieldname = new JTextField(15);
         JTextField addfieldbirth = new JTextField(10);
         JTextField removefield = new JTextField(1);
-        add(profiles, BorderLayout.CENTER);
-        add(profileshown, BorderLayout.SOUTH);
+        add(centerscreen, BorderLayout.CENTER);
+        centerscreen.add(profiles, BorderLayout.WEST);
+        centerscreen.add(profileshown, BorderLayout.EAST);
         profiles.add(addfieldlet);
         profiles.add(addfieldname);
         profiles.add(addfieldbirth);

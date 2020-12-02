@@ -47,8 +47,6 @@ public class Search extends JPanel {
 
         JPanel sr = new JPanel();
         add(sr, BorderLayout.CENTER);
-        JScrollPane scrollbar = new JScrollPane();
-        sr.add(scrollbar);
         sr.setVisible(true);
 
         srbut.addActionListener(new ActionListener() {
@@ -73,11 +71,15 @@ public class Search extends JPanel {
 
 
                     try {
+                        /**rs.last();
+                        int size = rs.getRow();
+                        rs.first();
+                        JButton[] moviebuttons = new JButton[size];*/
 
                         while (rs.next()) {
 
-                            JLabel movielabel = new JLabel(rs.getString(arrays[0])+" --- ");
-                            sr.add(movielabel);
+                            JButton moviebutton = new JButton(rs.getString(arrays[0]));
+                            sr.add(moviebutton);
                             sr.revalidate();
                             found = true;
 

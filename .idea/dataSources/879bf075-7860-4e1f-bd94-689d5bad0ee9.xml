@@ -2231,10 +2231,10 @@ false posixrules
     <database id="207" parent="1" name="mssostromb">
       <ObjectId>210223</ObjectId>
       <Owner>ostromb</Owner>
-      <IntrospectionStateNumber>11308991</IntrospectionStateNumber>
+      <IntrospectionStateNumber>11348668</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|289618|289620|1
-sequence|table|266425|266427|1
+      <Relations>sequence|table|266425|266427|1
+sequence|table|289618|289620|1
 </Relations>
     </database>
     <database id="208" parent="1" name="naander">
@@ -3946,7 +3946,7 @@ sequence|table|266425|266427|1
       <Comment>standard public schema</Comment>
       <StateNumber>10600996</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>11308992</IntrospectionStateNumber>
+      <IntrospectionStateNumber>11348669</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="569" parent="207" name="btree">
@@ -4024,7 +4024,7 @@ sequence|table|266425|266427|1
     <table id="582" parent="568" name="actors">
       <ObjectId>217243</ObjectId>
       <Owner>ostromb</Owner>
-      <StateNumber>11308979</StateNumber>
+      <StateNumber>11348534</StateNumber>
       <Acl>16855=arwdDxt/16855
 16895=arwdDxt/16855
 </Acl>
@@ -4040,7 +4040,7 @@ sequence|table|266425|266427|1
     <table id="584" parent="568" name="customer">
       <ObjectId>226122</ObjectId>
       <Owner>axu</Owner>
-      <StateNumber>10494690</StateNumber>
+      <StateNumber>11348611</StateNumber>
       <Acl>16895=arwdDxt/16895
 16855=arwdDxt/16895
 </Acl>
@@ -4056,7 +4056,7 @@ sequence|table|266425|266427|1
     <table id="586" parent="568" name="directors">
       <ObjectId>224060</ObjectId>
       <Owner>ostromb</Owner>
-      <StateNumber>11308988</StateNumber>
+      <StateNumber>11348543</StateNumber>
       <Acl>16855=arwdDxt/16855
 16895=arwdDxt/16855
 </Acl>
@@ -4072,15 +4072,15 @@ sequence|table|266425|266427|1
     <table id="588" parent="568" name="genres">
       <ObjectId>229179</ObjectId>
       <Owner>ostromb</Owner>
-      <StateNumber>11308984</StateNumber>
-      <Acl>16895=arwdDxt/16855
-16855=arwdDxt/16855
+      <StateNumber>11348539</StateNumber>
+      <Acl>16855=arwdDxt/16855
+16895=arwdDxt/16855
 </Acl>
     </table>
     <table id="589" parent="568" name="movies">
       <ObjectId>289620</ObjectId>
       <Owner>ostromb</Owner>
-      <StateNumber>11308988</StateNumber>
+      <StateNumber>11348560</StateNumber>
       <Acl>16855=arwdDxt/16855
 16895=arwdDxt/16855
 </Acl>
@@ -4096,17 +4096,17 @@ sequence|table|266425|266427|1
     <table id="591" parent="568" name="paymentinfo">
       <ObjectId>241310</ObjectId>
       <Owner>axu</Owner>
-      <StateNumber>10346916</StateNumber>
-      <Acl>16855=arwdDxt/16895
-16895=arwdDxt/16895
+      <StateNumber>11348611</StateNumber>
+      <Acl>16895=arwdDxt/16895
+16855=arwdDxt/16895
 </Acl>
     </table>
     <table id="592" parent="568" name="remakes">
       <ObjectId>228979</ObjectId>
       <Owner>axu</Owner>
-      <StateNumber>11303539</StateNumber>
-      <Acl>16855=arwdDxt/16895
-16895=arwdDxt/16895
+      <StateNumber>11348560</StateNumber>
+      <Acl>16895=arwdDxt/16895
+16855=arwdDxt/16895
 </Acl>
     </table>
     <table id="593" parent="568" name="subscription">
@@ -4175,14 +4175,15 @@ sequence|table|266425|266427|1
       <TypeId>1043</TypeId>
     </column>
     <foreign-key id="602" parent="582" name="fk_actors">
-      <ObjectId>382613</ObjectId>
-      <StateNumber>11308979</StateNumber>
+      <ObjectId>385801</ObjectId>
+      <StateNumber>11348534</StateNumber>
       <ColNames>mediaid</ColNames>
       <RefTableId>289620</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>movies</RefTableName>
       <RefKeyName>movies_pkey</RefKeyName>
       <RefColNames>movieid</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="603" parent="583" name="adminid">
       <Position>1</Position>
@@ -4344,14 +4345,15 @@ userprofile</ColNames>
       <TypeId>1043</TypeId>
     </column>
     <foreign-key id="628" parent="586" name="fk_actors">
-      <ObjectId>382623</ObjectId>
-      <StateNumber>11308988</StateNumber>
+      <ObjectId>385812</ObjectId>
+      <StateNumber>11348543</StateNumber>
       <ColNames>mediaid</ColNames>
       <RefTableId>289620</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>movies</RefTableName>
       <RefKeyName>movies_pkey</RefKeyName>
       <RefColNames>movieid</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="629" parent="587" name="episodeid">
       <Position>1</Position>
@@ -4432,14 +4434,15 @@ userprofile</ColNames>
       <TypeId>1043</TypeId>
     </column>
     <foreign-key id="641" parent="588" name="fk_actors">
-      <ObjectId>382618</ObjectId>
-      <StateNumber>11308984</StateNumber>
+      <ObjectId>385807</ObjectId>
+      <StateNumber>11348539</StateNumber>
       <ColNames>mediaid</ColNames>
       <RefTableId>289620</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>movies</RefTableName>
       <RefKeyName>movies_pkey</RefKeyName>
       <RefColNames>movieid</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="642" parent="589" name="movieid">
       <Position>1</Position>
@@ -4563,191 +4566,203 @@ userprofile</ColNames>
       <StateNumber>10345233</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="660" parent="592" name="mediaid">
+    <foreign-key id="660" parent="591" name="paymentinfo_customer_customerid_fk">
+      <ObjectId>385826</ObjectId>
+      <StateNumber>11348611</StateNumber>
+      <ColNames>customerid</ColNames>
+      <RefTableId>226122</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>customer</RefTableName>
+      <RefKeyName>customer_pkey</RefKeyName>
+      <RefColNames>customerid</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="661" parent="592" name="mediaid">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10215768</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="661" parent="592" name="media_type">
+    <column id="662" parent="592" name="media_type">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>10215768</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="662" parent="592" name="original_year">
+    <column id="663" parent="592" name="original_year">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10215768</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="663" parent="592" name="fk_remakes">
-      <ObjectId>381939</ObjectId>
-      <StateNumber>11303539</StateNumber>
+    <foreign-key id="664" parent="592" name="fk_remakes">
+      <ObjectId>385817</ObjectId>
+      <StateNumber>11348560</StateNumber>
       <ColNames>mediaid</ColNames>
       <RefTableId>289620</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>movies</RefTableName>
       <RefKeyName>movies_pkey</RefKeyName>
       <RefColNames>movieid</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="664" parent="593" name="subscriptionid">
+    <column id="665" parent="593" name="subscriptionid">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>11231356</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="665" parent="593" name="card_number">
+    <column id="666" parent="593" name="card_number">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>11231356</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="666" parent="593" name="card_issue">
+    <column id="667" parent="593" name="card_issue">
       <Position>3</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>11231356</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="667" parent="593" name="card_date">
+    <column id="668" parent="593" name="card_date">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>11231356</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="668" parent="593" name="sub_type">
+    <column id="669" parent="593" name="sub_type">
       <Position>5</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>11231356</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="669" parent="593" name="payment_amount">
+    <column id="670" parent="593" name="payment_amount">
       <Position>6</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>11231356</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="670" parent="593" name="sub_start">
+    <column id="671" parent="593" name="sub_start">
       <Position>7</Position>
       <DataType>date|0s</DataType>
       <StateNumber>11231356</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="671" parent="594" name="subscriptinid">
+    <column id="672" parent="594" name="subscriptinid">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10356070</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="672" parent="594" name="sub_exp">
+    <column id="673" parent="594" name="sub_exp">
       <Position>2</Position>
       <DataType>date|0s</DataType>
       <StateNumber>10356070</StateNumber>
       <TypeId>1082</TypeId>
     </column>
-    <column id="673" parent="595" name="seriesid">
+    <column id="674" parent="595" name="seriesid">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>10444587</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="674" parent="595" name="name">
+    <column id="675" parent="595" name="name">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>10311916</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="675" parent="595" name="launch_year">
+    <column id="676" parent="595" name="launch_year">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10311916</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="676" parent="595" name="seasons">
+    <column id="677" parent="595" name="seasons">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10311916</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="677" parent="595" name="rating">
+    <column id="678" parent="595" name="rating">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10311916</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="678" parent="595" name="tvseries_pkey">
+    <index id="679" parent="595" name="tvseries_pkey">
       <ObjectId>253535</ObjectId>
       <StateNumber>10444587</StateNumber>
       <ColNames>seriesid</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="679" parent="595" name="tvseries_pkey">
+    <key id="680" parent="595" name="tvseries_pkey">
       <ObjectId>253536</ObjectId>
       <StateNumber>10444587</StateNumber>
       <ColNames>seriesid</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>tvseries_pkey</UnderlyingIndexName>
     </key>
-    <column id="680" parent="596" name="watchlistid">
+    <column id="681" parent="596" name="watchlistid">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>10444589</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="681" parent="596" name="customerid">
+    <column id="682" parent="596" name="customerid">
       <Position>2</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10353943</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="682" parent="596" name="userprofile">
+    <column id="683" parent="596" name="userprofile">
       <Position>3</Position>
       <DataType>char|0s</DataType>
       <StateNumber>10353943</StateNumber>
       <TypeId>1042</TypeId>
     </column>
-    <column id="683" parent="596" name="mediaid">
+    <column id="684" parent="596" name="mediaid">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10353943</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="684" parent="596" name="media_type">
+    <column id="685" parent="596" name="media_type">
       <Position>5</Position>
       <DataType>char|0s</DataType>
       <StateNumber>10353943</StateNumber>
       <TypeId>1042</TypeId>
     </column>
-    <column id="685" parent="596" name="rating">
+    <column id="686" parent="596" name="rating">
       <Position>6</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10353943</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="686" parent="596" name="progress">
+    <column id="687" parent="596" name="progress">
       <Position>7</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10353943</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="687" parent="596" name="watchlist_pkey">
+    <index id="688" parent="596" name="watchlist_pkey">
       <ObjectId>253542</ObjectId>
       <StateNumber>10444589</StateNumber>
       <ColNames>watchlistid</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="688" parent="596" name="watchlist_pkey">
+    <key id="689" parent="596" name="watchlist_pkey">
       <ObjectId>253543</ObjectId>
       <StateNumber>10444589</StateNumber>
       <ColNames>watchlistid</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>watchlist_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="689" parent="596" name="watchlist_customerid_fkey">
+    <foreign-key id="690" parent="596" name="watchlist_customerid_fkey">
       <ObjectId>378548</ObjectId>
       <StateNumber>11230716</StateNumber>
       <ColNames>customerid
@@ -4760,82 +4775,82 @@ userprofile</ColNames>
 userprofile</RefColNames>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="690" parent="597" name="movieid">
+    <column id="691" parent="597" name="movieid">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10600990</StateNumber>
     </column>
-    <column id="691" parent="597" name="name">
+    <column id="692" parent="597" name="name">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>10600990</StateNumber>
     </column>
-    <column id="692" parent="597" name="year">
+    <column id="693" parent="597" name="year">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10600990</StateNumber>
     </column>
-    <column id="693" parent="597" name="rating">
+    <column id="694" parent="597" name="rating">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10600990</StateNumber>
     </column>
-    <column id="694" parent="597" name="length">
+    <column id="695" parent="597" name="length">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10600990</StateNumber>
     </column>
-    <column id="695" parent="597" name="country">
+    <column id="696" parent="597" name="country">
       <Position>6</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>10600990</StateNumber>
     </column>
-    <column id="696" parent="597" name="agrestrict">
+    <column id="697" parent="597" name="agrestrict">
       <Position>7</Position>
       <DataType>char|0s</DataType>
       <StateNumber>10600990</StateNumber>
     </column>
-    <column id="697" parent="597" name="date_added">
+    <column id="698" parent="597" name="date_added">
       <Position>8</Position>
       <DataType>date|0s</DataType>
       <StateNumber>10600990</StateNumber>
     </column>
-    <column id="698" parent="598" name="movieid">
+    <column id="699" parent="598" name="movieid">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10600977</StateNumber>
     </column>
-    <column id="699" parent="598" name="name">
+    <column id="700" parent="598" name="name">
       <Position>2</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>10600977</StateNumber>
     </column>
-    <column id="700" parent="598" name="year">
+    <column id="701" parent="598" name="year">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10600977</StateNumber>
     </column>
-    <column id="701" parent="598" name="rating">
+    <column id="702" parent="598" name="rating">
       <Position>4</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10600977</StateNumber>
     </column>
-    <column id="702" parent="598" name="length">
+    <column id="703" parent="598" name="length">
       <Position>5</Position>
       <DataType>integer|0s</DataType>
       <StateNumber>10600977</StateNumber>
     </column>
-    <column id="703" parent="598" name="country">
+    <column id="704" parent="598" name="country">
       <Position>6</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>10600977</StateNumber>
     </column>
-    <column id="704" parent="598" name="agrestrict">
+    <column id="705" parent="598" name="agrestrict">
       <Position>7</Position>
       <DataType>char|0s</DataType>
       <StateNumber>10600977</StateNumber>
     </column>
-    <column id="705" parent="598" name="date_added">
+    <column id="706" parent="598" name="date_added">
       <Position>8</Position>
       <DataType>date|0s</DataType>
       <StateNumber>10600977</StateNumber>

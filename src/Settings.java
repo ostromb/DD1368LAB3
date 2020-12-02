@@ -16,7 +16,6 @@ public class Settings extends JPanel{
         setSize(500,500);
         setVisible(true);
         JPanel subs = new JPanel();
-        JPanel movies = new JPanel();
 
         JButton butupdatesub = new JButton("Update Subscription");
         JLabel lblsubs = new JLabel("Manage Subscription");
@@ -54,19 +53,21 @@ public class Settings extends JPanel{
 
         }
 
-
-
+        JPanel movies = new JPanel();
         JButton butmovieadd = new JButton("Add movie");
+        JButton butmovieupdate = new JButton("Update");
         JLabel lbladdmovie = new JLabel("Add information about new movie");
         JTextField addmovieid = new JTextField(30);
         JTextField addmoviename = new JTextField(30);
-        JTextField addmovieyear = new JTextField(30);
-        JTextField addmovierating = new JTextField(30);
+        JTextField addmovieyear = new JTextField(4);
+        JTextField addmovierating = new JTextField(2);
         JTextField addmovielength = new JTextField(30);
         JTextField addmoviecountry = new JTextField(30);
-        JTextField addmovieagerestrict = new JTextField(30);
+        JTextField addmovieagerestrict = new JTextField(1);
         JTextField addmoviedateadded = new JTextField(30);
+        add(movies, BorderLayout.CENTER);
         movies.add(butmovieadd);
+        movies.add(butmovieupdate);
         movies.add(addmovieid);
         movies.add(addmoviename);
         movies.add(addmovieyear);
@@ -241,7 +242,7 @@ public class Settings extends JPanel{
                 }
             });
 
-            /* butmovieadd.addActionListener(new ActionListener() {
+            butmovieadd.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Integer movieid = Integer.parseInt(addmovieid.getText().toString());
@@ -254,7 +255,7 @@ public class Settings extends JPanel{
                     String date_added = addmoviedateadded.getText();
 
                     try {
-                        PreparedStatement st1 = connection.prepareStatement("INSERT INTO movies (movieid, name, year, rating, length, country, agerestrict, date_added) VALUES (?,?,?,?,?,?,?)");
+                        PreparedStatement st1 = connection.prepareStatement("INSERT INTO movies (movieid, name, year, rating, length, country, agerestrict, date_added) VALUES (?,?,?,?,?,?,?,?)");
                         st1.setInt(1, movieid);
                         st1.setString(2, name);
                         st1.setInt(3, year);
@@ -263,13 +264,14 @@ public class Settings extends JPanel{
                         st1.setString(6, country);
                         st1.setString(7, agerestrict);
                         st1.setString(8, date_added);
+                        st1.executeQuery();
 
                     } catch (SQLException m){
 
                     }
                 }
             });
-            */
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

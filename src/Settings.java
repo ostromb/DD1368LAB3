@@ -16,7 +16,7 @@ public class Settings extends JPanel{
         setSize(500,500);
         setVisible(true);
         JPanel subs = new JPanel();
-        JPanel movies = new JPanel();
+
         JPanel centerscreen = new JPanel();
 
         JButton butupdatesub = new JButton("Update Subscription");
@@ -56,26 +56,28 @@ public class Settings extends JPanel{
 
         }
 
-
-
+        JPanel movies = new JPanel();
         JButton butmovieadd = new JButton("Add movie");
+        JButton butmovieupdate = new JButton("Update");
         JLabel lbladdmovie = new JLabel("Add information about new movie");
-        JTextField addmovieid = new JTextField(30);
-        JTextField addmoviename = new JTextField(30);
-        JTextField addmovieyear = new JTextField(30);
-        JTextField addmovierating = new JTextField(30);
-        JTextField addmovielength = new JTextField(30);
-        JTextField addmoviecountry = new JTextField(30);
-        JTextField addmovieagerestrict = new JTextField(30);
-        JTextField addmoviedateadded = new JTextField(30);
+        JTextField addmovieid = new JTextField(20);
+        JTextField addmoviename = new JTextField(20);
+        JTextField addmovieyear = new JTextField(4);
+        JTextField addmovierating = new JTextField(2);
+        JTextField addmovielength = new JTextField(20);
+        JTextField addmoviecountry = new JTextField(20);
+        JTextField addmovieagrestrict = new JTextField(1);
+        JTextField addmoviedateadded = new JTextField(20);
+        add(movies, BorderLayout.SOUTH);
         movies.add(butmovieadd);
+        movies.add(butmovieupdate);
         movies.add(addmovieid);
         movies.add(addmoviename);
         movies.add(addmovieyear);
         movies.add(addmovierating);
         movies.add(addmovielength);
         movies.add(addmoviecountry);
-        movies.add(addmovieagerestrict);
+        movies.add(addmovieagrestrict);
         movies.add(addmoviedateadded);
 
         try {
@@ -243,35 +245,37 @@ public class Settings extends JPanel{
                 }
             });
 
-            /* butmovieadd.addActionListener(new ActionListener() {
+            butmovieadd.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Integer movieid = Integer.parseInt(addmovieid.getText().toString());
+                    String movieid = addmovieid.getText();
                     String name = addmoviename.getText();
-                    Integer year = Integer.parseInt(addmovieyear.getText().toString());
-                    Integer rating = Integer.parseInt(addmovierating.getText().toString());
-                    Integer length = Integer.parseInt(addmovielength.getText().toString());
+                    String year = addmovieyear.getText();
+                    String rating = addmovierating.getText();
+                    String length = addmovielength.getText();
                     String country = addmoviecountry.getText();
-                    String agerestrict = addmovieagerestrict.getText();
-                    String date_added = addmoviedateadded.getText();
+                    String agrestrict = addmovieagrestrict.getText();
+                    Date date_added = Date.valueOf(addmoviedateadded.getText());
 
                     try {
-                        PreparedStatement st1 = connection.prepareStatement("INSERT INTO movies (movieid, name, year, rating, length, country, agerestrict, date_added) VALUES (?,?,?,?,?,?,?)");
-                        st1.setInt(1, movieid);
+                        PreparedStatement st1 = connection.prepareStatement("INSERT INTO movies (movieid, name, year, rating, length, country, agrestrict, date_added) VALUES (?,?,?,?,?,?,?,?)");
+                        st1.setInt(1, Integer.parseInt(movieid));
                         st1.setString(2, name);
-                        st1.setInt(3, year);
-                        st1.setInt(4, rating);
-                        st1.setInt(5, length);
+                        st1.setInt(3, Integer.parseInt(year));
+                        st1.setInt(4, Integer.parseInt(rating));
+                        st1.setInt(5, Integer.parseInt(length));
                         st1.setString(6, country);
-                        st1.setString(7, agerestrict);
-                        st1.setString(8, date_added);
+                        st1.setString(7, agrestrict);
+                        st1.setDate(8, date_added);
+
+                        st1.executeQuery();
 
                     } catch (SQLException m){
-
+                        m.printStackTrace();
                     }
                 }
             });
-            */
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

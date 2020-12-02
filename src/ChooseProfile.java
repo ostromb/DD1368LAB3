@@ -24,6 +24,7 @@ public class ChooseProfile extends JFrame {
         profile_button[0] = new JButton();
         profile_button[1] = new JButton();
         profile_button[2] = new JButton();
+
         setSize(Toolkit.getDefaultToolkit().getScreenSize());
         setLayout(new FlowLayout());
         profile_button[0].addActionListener(new ActionListener() {
@@ -59,10 +60,16 @@ public class ChooseProfile extends JFrame {
 
             while (rs.next()) {
                 if(rs.getInt(1) == infoHolder.getId()) {
+
                     profile_names.add(rs.getString(3));
                     userProfiles.add(rs.getString(2).charAt(0));
                 }
             }
+
+            infoHolder.setProfile_names(profile_names);
+            infoHolder.setUserProfiles(userProfiles);
+
+
 
             for (int i=0; i<profile_names.size(); i++) {
                 profile_button[i].setText(profile_names.get(i));

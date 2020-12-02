@@ -4,11 +4,16 @@ public class InfoHolder {
     private int id;
     private String profile;
     private char userProfile;
+    private ArrayList<String> profile_names;
+    private ArrayList<Character> userProfiles;
+
 
     public InfoHolder() {
         id = 0;
         profile = "";
         userProfile = 'z';
+        profile_names = new ArrayList<>();
+        userProfiles = new ArrayList<>();
 
     }
 
@@ -47,4 +52,21 @@ public class InfoHolder {
     public char getUserProfile() {
         return userProfile;
     }
+
+    public void setUserProfiles(ArrayList<Character> userProfiles) {
+        this.userProfiles = userProfiles;
+    }
+
+    public ArrayList<Character> getUserProfiles() {
+        return userProfiles;
+    }
+
+    public void setProfile_names(ArrayList<String> profile_names) {
+        this.profile_names = profile_names;
+    }
+
+    public ArrayList<String> getProfile_names() {
+        return profile_names;
+    }
+
 }

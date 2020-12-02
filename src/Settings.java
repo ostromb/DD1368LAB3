@@ -4,14 +4,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+
 public class Settings extends JPanel{
     private Connection connection;
     private InfoHolder infoHolder;
     private DataEntry dataEntry;
+    private JLabel[] lblprof = new JLabel[3];
     public Settings(InfoHolder infoHolder, Connection connection, DataEntry dataEntry)  {
         setSize(500,500);
         setVisible(true);
@@ -25,15 +25,35 @@ public class Settings extends JPanel{
         setLayout(new BorderLayout());
         add(subs,BorderLayout.NORTH);
         JPanel profiles = new JPanel();
+        JPanel profileshown = new JPanel();
         JButton butprofileadd = new JButton("Add Profile");
         JButton butprofileremove = new JButton("Remove Profile");
-        JTextField addfield = new JTextField(30);
-        JTextField removefield = new JTextField(30);
+        JButton butprofileupdate = new JButton("Update");
+        JTextField addfieldlet = new JTextField(1);
+        JTextField addfieldname = new JTextField(15);
+        JTextField addfieldbirth = new JTextField(10);
+        JTextField removefield = new JTextField(1);
         add(profiles, BorderLayout.CENTER);
-        profiles.add(addfield);
+        add(profileshown, BorderLayout.SOUTH);
+        profiles.add(addfieldlet);
+        profiles.add(addfieldname);
+        profiles.add(addfieldbirth);
         profiles.add(butprofileadd);
         profiles.add(removefield);
         profiles.add(butprofileremove);
+        profiles.add(butprofileupdate);
+
+
+        for (int i= 0;i<infoHolder.getUserProfiles().size();i++) {
+
+            lblprof[i] = new JLabel(String.valueOf(infoHolder.getUserProfiles().get(i))+"."+infoHolder.getProfile_names().get(i));
+            profileshown.add(lblprof[i]);
+            profileshown.revalidate();
+            profileshown.repaint();
+
+        }
+
+
 
 
 
@@ -63,16 +83,9 @@ public class Settings extends JPanel{
             subs.add(butupdatesub);
             subs.revalidate();
 
-            PreparedStatement lt = connection.prepareStatement("SELECT * FROM customerprofiles WHERE customerid=?");
-            lt.setInt(1,infoHolder.getId());
-            ResultSet rl = lt.executeQuery();
-
-            while (rl.next()) {
-                JLabel lblprof = new JLabel(rl.getString("name"));
-                profiles.add(lblprof);
 
 
-            }
+
 
             butprofileremove.addActionListener(new ActionListener() {
 
@@ -81,22 +94,24 @@ public class Settings extends JPanel{
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String remname = removefield.getText();
 
 
 
-                    try {
-                        PreparedStatement lt1 = connection.prepareStatement("DELETE FROM customerprofiles WHERE customerid = ? AND name = ?");
-                        lt1.setInt(1,infoHolder.getId());
-                        lt1.setString(2,remname);
-                        lt1.executeQuery();
-                        repaint();
-                        revalidate();
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
+                    if (infoHolder.getUserProfiles().size() != 0) {
+                        String remname = removefield.getText();
+                        try {
+                            PreparedStatement lt1 = connection.prepareStatement("DELETE FROM customerprofiles WHERE customerid = ? AND userprofile = ?");
+                            lt1.setInt(1, infoHolder.getId());
+                            lt1.setString(2, remname);
+                            lt1.executeQuery();
+                            repaint();
+                            revalidate();
+                        } catch (SQLException throwables) {
+                            throwables.printStackTrace();
+                        }
+
+
                     }
-
-
                 }
             });
 
@@ -107,20 +122,70 @@ public class Settings extends JPanel{
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String addname = addfield.getText();
 
+
+                    if (infoHolder.getUserProfiles().size()<3) {
+                    String addlet = addfieldlet.getText();
+                    String addname = addfieldname.getText();
+                    Date adddate = Date.valueOf(addfieldbirth.getText());
 
 
                     try {
 
 
-                        PreparedStatement lt1 = connection.prepareStatement("INSERT INTO customerprofiles (customerid, userprofile, name, birthdate) VALUES (?,?,?, NULL)");
+                        PreparedStatement lt1 = connection.prepareStatement("INSERT INTO customerprofiles (customerid, userprofile, name, birthdate) VALUES (?,?,?,?)");
                         lt1.setInt(1,infoHolder.getId());
-                        lt1.setString(2,"d");
+                        lt1.setString(2,addlet);
                         lt1.setString(3,addname);
+                        lt1.setDate(4,adddate);
                         lt1.executeQuery();
-                        repaint();
-                        revalidate();
+
+
+
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+
+
+                }
+                }
+            });
+            butprofileupdate.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    profileshown.removeAll();
+
+                    PreparedStatement pst = null;
+                    try {
+                        pst = connection.prepareStatement("SELECT * FROM customerprofiles");
+
+                    ResultSet ra = pst.executeQuery();
+                    ArrayList profile_names = new ArrayList<String>();
+                    ArrayList userProfiles = new ArrayList<Character>();
+
+                    while (ra.next()) {
+                        if(ra.getInt(1) == infoHolder.getId()) {
+
+                            profile_names.add(ra.getString(3));
+                            userProfiles.add(ra.getString(2).charAt(0));
+                        }
+                    }
+
+                    infoHolder.setProfile_names(profile_names);
+                    infoHolder.setUserProfiles(userProfiles);
+                        for (int i= 0;i<infoHolder.getUserProfiles().size();i++) {
+
+                            lblprof[i] =  new JLabel(String.valueOf(infoHolder.getUserProfiles().get(i))+"."+infoHolder.getProfile_names().get(i));
+                            profileshown.add(lblprof[i]);
+                            profileshown.revalidate();
+                            profileshown.repaint();
+
+
+
+                        }
+
+
 
 
 

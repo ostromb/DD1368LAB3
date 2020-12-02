@@ -27,6 +27,7 @@ public class DataEntry {
         CP.dispose();
     }
 
+
     DataEntry() {
         connection = DataEntry.getConnection();
         infoHolder = new InfoHolder();

@@ -17,7 +17,7 @@ public class Menu extends JFrame {
 
     private JButton searchButton;
     private JPanel MenuPanel = new JPanel();
-    private JPanel pn1 = new JPanel();
+
     private JPanel pn2 = new JPanel();
     private JPanel pn3 = new JPanel();
     private JTabbedPane tabbedPane1 = new JTabbedPane();
@@ -42,6 +42,7 @@ public class Menu extends JFrame {
         this.infoHolder = infoHolder;
         this.connection = connection;
         this.dataEntry = dataEntry;
+        JPanel pn1 = new Search(infoHolder, connection,dataEntry);
         tabbedPane1.add("Search",pn1);
         tabbedPane1.add("Watchlist",pn2);
         tabbedPane1.add("Settings",pn3);

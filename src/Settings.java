@@ -1,21 +1,28 @@
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+
+
 
 public class Settings extends JPanel{
     private Connection connection;
     private InfoHolder infoHolder;
     private DataEntry dataEntry;
     private JLabel[] lblprof = new JLabel[3];
+    private JLabel lblexp = new JLabel("");
+    private JLabel lblstart = new JLabel("");
+    private int months = 0;
     public Settings(InfoHolder infoHolder, Connection connection, DataEntry dataEntry)  {
         setSize(500,500);
         setVisible(true);
+        JPanel subpanel = new JPanel();
         JPanel subs = new JPanel();
+        JPanel subsdur = new JPanel();
 
         JPanel centerscreen = new JPanel();
 
@@ -25,7 +32,9 @@ public class Settings extends JPanel{
 
 
         setLayout(new BorderLayout());
-        add(subs,BorderLayout.NORTH);
+        add(subpanel,BorderLayout.NORTH);
+        subpanel.add(subsdur,BorderLayout.EAST);
+        subpanel.add(subs,BorderLayout.WEST);
         JPanel profiles = new JPanel();
         JPanel profileshown = new JPanel();
         JButton butprofileadd = new JButton("Add Profile");
@@ -81,7 +90,7 @@ public class Settings extends JPanel{
         movies.add(addmoviedateadded);
 
         try {
-            PreparedStatement st = connection.prepareStatement("SELECT * FROM (SELECT * FROM subscription INNER JOIN paymentinfo p on subscription.subscriptionid = p.subscriptionid) as k WHERE customerid = ?");
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM (SELECT * FROM (SELECT subscription.*, customerid FROM subscription INNER JOIN paymentinfo p on subscription.subscriptionid = p.subscriptionid) as k WHERE customerid = ?) as l INNER JOIN subscriptionduration ON l.subscriptionid = subscriptionduration.subscriptinid");
             st.setInt(1, infoHolder.getId());
             ResultSet rs = st.executeQuery();
             rs.next();
@@ -92,6 +101,10 @@ public class Settings extends JPanel{
             JTextField cardplan = new JTextField(rs.getString(5));
             String cra = Integer.toString(rs.getInt(6));
             JTextField cardamount = new JTextField(cra);
+            lblstart = new JLabel(rs.getString(7));
+            lblexp = new JLabel(rs.getString(10));
+
+
 
 
 
@@ -100,9 +113,100 @@ public class Settings extends JPanel{
             subs.add(carddate);
             subs.add(cardplan);
             subs.add(cardamount);
+            subsdur.add(lblstart);
+            subsdur.add(lblexp);
+
+
 
             subs.add(butupdatesub);
-            subs.revalidate();
+            revalidate();
+
+            /** SUB UPDATE */
+            butupdatesub.addActionListener(new ActionListener() {
+
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String c1 = cardnr.getText();
+                    String c2 = cardissue.getText();
+                    int c3 = Integer.parseInt(carddate.getText());
+                    String c4 = cardplan.getText();
+                    int c5 = Integer.parseInt(cardamount.getText());
+                    try {
+
+                        Calendar startydate = Calendar.getInstance();
+                        Date srtsqldate = (Date) startydate.getTime();
+                        String srtstrdate = String.valueOf(srtsqldate);
+                        Calendar expydate = Calendar.getInstance();
+
+
+                        PreparedStatement st1 = connection.prepareStatement("UPDATE subscription SET card_number = ?, card_issue = ?, card_date = ?, sub_type = ?,payment_amount = ?, sub_start = ? WHERE subscriptionid = ?" );
+                        st1.setString(1,c1);
+                        st1.setString(2,c2);
+                        st1.setInt(3,c3);
+                        st1.setString(4,c4);
+                        st1.setInt(5,c5);
+                        st1.setInt(6, infoHolder.getId());
+                        st1.setDate(7,srtsqldate);
+                        st1.executeQuery();
+                        int monthcost = 1;
+                        if (c4 == "Family") {
+                            monthcost =  99;
+                            int months = c5/monthcost;
+                            expydate.add(Calendar.MONTH, months);
+                            Date expsqldate = (Date) expydate.getTime();
+                            String expstrdate = String.valueOf(expsqldate);
+
+
+                            PreparedStatement durp = connection.prepareStatement("UPDATE subscriptionduration SET sub_exp=? WHERE subscriptinid=?");
+                            durp.setDate(1,expsqldate);
+                            durp.setInt(2,infoHolder.getId());
+                            lblstart = new JLabel(srtstrdate);
+                            lblexp = new JLabel(expstrdate);
+
+
+
+                        }
+                        else if(c4 == "Couple") {
+                            monthcost = 69;
+                            int months = c5/monthcost;
+                            expydate.add(Calendar.MONTH, months);
+                            Date expsqldate = (Date) expydate.getTime();
+                            String expstrdate = String.valueOf(expsqldate);
+
+
+                            PreparedStatement durp = connection.prepareStatement("UPDATE subscriptionduration SET sub_exp=? WHERE subscriptinid=?");
+                            durp.setDate(1,expsqldate);
+                            durp.setInt(2,infoHolder.getId());
+                            lblstart = new JLabel(srtstrdate);
+                            lblexp = new JLabel(expstrdate);
+
+
+                        }
+                        else if(c4 == "Individual") {
+                            monthcost = 49;
+                            int months = c5/monthcost;
+                            expydate.add(Calendar.MONTH, months);
+                            Date expsqldate = (Date) expydate.getTime();
+                            String expstrdate = String.valueOf(expsqldate);
+
+
+                            PreparedStatement durp = connection.prepareStatement("UPDATE subscriptionduration SET sub_exp=? WHERE subscriptinid=?");
+                            durp.setDate(1,expsqldate);
+                            durp.setInt(2,infoHolder.getId());
+                            lblstart = new JLabel(srtstrdate);
+                            lblexp = new JLabel(expstrdate);
+                        }
+
+
+
+
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+
+                }
+            });
 
 
 
@@ -218,32 +322,7 @@ public class Settings extends JPanel{
                 }
             });
 
-            butupdatesub.addActionListener(new ActionListener() {
 
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String c1 = cardnr.getText();
-                    String c2 = cardissue.getText();
-                    int c3 = Integer.parseInt(carddate.getText());
-                    String c4 = cardplan.getText();
-                    int c5 = Integer.parseInt(cardamount.getText());
-                    try {
-                        PreparedStatement st1 = connection.prepareStatement("UPDATE subscription SET card_number = ?, card_issue = ?, card_date = ?, sub_type = ?,payment_amount = ? WHERE subscriptionid = ?" );
-                        st1.setString(1,c1);
-                        st1.setString(2,c2);
-                        st1.setInt(3,c3);
-                        st1.setString(4,c4);
-                        st1.setInt(5,c5);
-                        st1.setInt(6, infoHolder.getId());
-
-                        st1.executeQuery();
-                    } catch (SQLException throwables) {
-                        throwables.printStackTrace();
-                    }
-
-                }
-            });
 
             butmovieadd.addActionListener(new ActionListener() {
                 @Override

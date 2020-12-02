@@ -16,6 +16,7 @@ public class Settings extends JPanel{
         setSize(500,500);
         setVisible(true);
         JPanel subs = new JPanel();
+        JPanel movies = new JPanel();
 
         JButton butupdatesub = new JButton("Update Subscription");
         JLabel lblsubs = new JLabel("Manage Subscription");
@@ -35,9 +36,25 @@ public class Settings extends JPanel{
         profiles.add(removefield);
         profiles.add(butprofileremove);
 
-
-
-
+        JButton butmovieadd = new JButton("Add movie");
+        JLabel lbladdmovie = new JLabel("Add information about new movie");
+        JTextField addmovieid = new JTextField(30);
+        JTextField addmoviename = new JTextField(30);
+        JTextField addmovieyear = new JTextField(30);
+        JTextField addmovierating = new JTextField(30);
+        JTextField addmovielength = new JTextField(30);
+        JTextField addmoviecountry = new JTextField(30);
+        JTextField addmovieagerestrict = new JTextField(30);
+        JTextField addmoviedateadded = new JTextField(30);
+        movies.add(butmovieadd);
+        movies.add(addmovieid);
+        movies.add(addmoviename);
+        movies.add(addmovieyear);
+        movies.add(addmovierating);
+        movies.add(addmovielength);
+        movies.add(addmoviecountry);
+        movies.add(addmovieagerestrict);
+        movies.add(addmoviedateadded);
 
         try {
             PreparedStatement st = connection.prepareStatement("SELECT * FROM (SELECT * FROM subscription INNER JOIN paymentinfo p on subscription.subscriptionid = p.subscriptionid) as k WHERE customerid = ?");
@@ -158,9 +175,43 @@ public class Settings extends JPanel{
 
                 }
             });
+
+            /* butmovieadd.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Integer movieid = Integer.parseInt(addmovieid.getText().toString());
+                    String name = addmoviename.getText();
+                    Integer year = Integer.parseInt(addmovieyear.getText().toString());
+                    Integer rating = Integer.parseInt(addmovierating.getText().toString());
+                    Integer length = Integer.parseInt(addmovielength.getText().toString());
+                    String country = addmoviecountry.getText();
+                    String agerestrict = addmovieagerestrict.getText();
+                    String date_added = addmoviedateadded.getText();
+
+                    try {
+                        PreparedStatement st1 = connection.prepareStatement("INSERT INTO movies (movieid, name, year, rating, length, country, agerestrict, date_added) VALUES (?,?,?,?,?,?,?)");
+                        st1.setInt(1, movieid);
+                        st1.setString(2, name);
+                        st1.setInt(3, year);
+                        st1.setInt(4, rating);
+                        st1.setInt(5, length);
+                        st1.setString(6, country);
+                        st1.setString(7, agerestrict);
+                        st1.setString(8, date_added);
+
+                    } catch (SQLException m){
+
+                    }
+                }
+            });
+            */
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+
+
 
 
 

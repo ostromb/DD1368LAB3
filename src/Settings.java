@@ -30,7 +30,6 @@ public class Settings extends JPanel{
         JLabel lblsubs = new JLabel("Manage Subscription");
         subs.add(lblsubs);
 
-
         setLayout(new BorderLayout());
         add(subpanel,BorderLayout.NORTH);
         subpanel.add(subsdur,BorderLayout.EAST);
@@ -47,6 +46,7 @@ public class Settings extends JPanel{
         add(centerscreen, BorderLayout.CENTER);
         centerscreen.add(profiles, BorderLayout.WEST);
         centerscreen.add(profileshown, BorderLayout.EAST);
+
         profiles.add(addfieldlet);
         profiles.add(addfieldname);
         profiles.add(addfieldbirth);
@@ -55,39 +55,89 @@ public class Settings extends JPanel{
         profiles.add(butprofileremove);
         profiles.add(butprofileupdate);
 
-
         for (int i= 0;i<infoHolder.getUserProfiles().size();i++) {
 
             lblprof[i] = new JLabel(String.valueOf(infoHolder.getUserProfiles().get(i))+"."+infoHolder.getProfile_names().get(i));
             profileshown.add(lblprof[i]);
             profileshown.revalidate();
             profileshown.repaint();
-
         }
 
-        JPanel movies = new JPanel();
+        JPanel bottomscreen = new JPanel();
+        JPanel buttonpanel = new JPanel();
+        JPanel fieldpanel1 = new JPanel();
+        JPanel fieldpanel2 = new JPanel();
+        JPanel fieldpanel3 = new JPanel();
+
         JButton butmovieadd = new JButton("Add movie");
-        JButton butmovieupdate = new JButton("Update");
-        JLabel lbladdmovie = new JLabel("Add information about new movie");
-        JTextField addmovieid = new JTextField(20);
-        JTextField addmoviename = new JTextField(20);
+        JButton butmovieremove = new JButton("Remove movie");
+        JButton butactoradd = new JButton("Add actor");
+        JButton butdirectoradd = new JButton("Add director");
+        JButton butgenreadd = new JButton("Add genre");
+        JButton butremakeadd = new JButton("Add remake");
+        JButton butcustomeradd = new JButton("Add customer");
+
+        JTextField addmovieid = new JTextField(15);
+        JTextField removemovie = new JTextField(15);
+        JTextField addmoviename = new JTextField(15);
         JTextField addmovieyear = new JTextField(4);
         JTextField addmovierating = new JTextField(2);
-        JTextField addmovielength = new JTextField(20);
+        JTextField addmovielength = new JTextField(4);
         JTextField addmoviecountry = new JTextField(20);
         JTextField addmovieagrestrict = new JTextField(1);
-        JTextField addmoviedateadded = new JTextField(20);
-        add(movies, BorderLayout.SOUTH);
-        movies.add(butmovieadd);
-        movies.add(butmovieupdate);
-        movies.add(addmovieid);
-        movies.add(addmoviename);
-        movies.add(addmovieyear);
-        movies.add(addmovierating);
-        movies.add(addmovielength);
-        movies.add(addmoviecountry);
-        movies.add(addmovieagrestrict);
-        movies.add(addmoviedateadded);
+        JTextField addmoviedateadded = new JTextField(10);
+        addmoviedateadded.setText("");
+        JTextField addactormovie = new JTextField(4);
+        JTextField addactors = new JTextField(20);
+        JTextField adddirectormovie = new JTextField(4);
+        JTextField adddirectors = new JTextField(20);
+        JTextField addgenremovie = new JTextField(4);
+        JTextField addgenres = new JTextField(20);
+        JTextField addremakemovie = new JTextField(4);
+        JTextField addremakes = new JTextField(4);
+        JTextField addcustomerid = new JTextField(3);
+        JTextField addcustomeremail = new JTextField(25);
+        JTextField addcustomerpw = new JTextField(15);
+        JTextField addcustomerphone = new JTextField(12);
+        JTextField addcustomeraddress = new JTextField(25);
+        JTextField addcustomerdiscount = new JTextField(3);
+
+        bottomscreen.setPreferredSize(new Dimension((int)getToolkit().getScreenSize().getWidth(), 500));
+        add(bottomscreen, BorderLayout.SOUTH);
+        bottomscreen.add(buttonpanel, BorderLayout.EAST);
+        bottomscreen.add(fieldpanel1, BorderLayout.SOUTH);
+        bottomscreen.add(fieldpanel2, BorderLayout.NORTH);
+        bottomscreen.add(fieldpanel3, BorderLayout.CENTER);
+        buttonpanel.add(butmovieadd);
+        fieldpanel1.add(addmovieid);
+        fieldpanel1.add(addmoviename);
+        fieldpanel1.add(addmovieyear);
+        fieldpanel1.add(addmovierating);
+        fieldpanel1.add(addmovielength);
+        fieldpanel1.add(addmoviecountry);
+        fieldpanel1.add(addmovieagrestrict);
+        fieldpanel1.add(addmoviedateadded);
+        fieldpanel1.add(butmovieremove);
+        fieldpanel1.add(removemovie);
+        fieldpanel2.add(butactoradd);
+        fieldpanel2.add(addactormovie);
+        fieldpanel2.add(addactors);
+        fieldpanel2.add(butdirectoradd);
+        fieldpanel2.add(adddirectormovie);
+        fieldpanel2.add(adddirectors);
+        fieldpanel2.add(butgenreadd);
+        fieldpanel2.add(addgenremovie);
+        fieldpanel2.add(addgenres);
+        fieldpanel2.add(butremakeadd);
+        fieldpanel2.add(addremakemovie);
+        fieldpanel2.add(addremakes);
+        fieldpanel3.add(butcustomeradd);
+        fieldpanel3.add(addcustomerid);
+        fieldpanel3.add(addcustomeremail);
+        fieldpanel3.add(addcustomerpw);
+        fieldpanel3.add(addcustomerphone);
+        fieldpanel3.add(addcustomeraddress);
+        fieldpanel3.add(addcustomerdiscount);
 
         try {
             PreparedStatement st = connection.prepareStatement("SELECT * FROM (SELECT * FROM (SELECT subscription.*, customerid FROM subscription INNER JOIN paymentinfo p on subscription.subscriptionid = p.subscriptionid) as k WHERE customerid = ?) as l INNER JOIN subscriptionduration ON l.subscriptionid = subscriptionduration.subscriptinid");
@@ -103,8 +153,6 @@ public class Settings extends JPanel{
             JTextField cardamount = new JTextField(cra);
             lblstart = new JLabel(rs.getString(7));
             lblexp = new JLabel(rs.getString(10));
-
-
 
 
 
@@ -208,19 +256,10 @@ public class Settings extends JPanel{
                 }
             });
 
-
-
-
-
             butprofileremove.addActionListener(new ActionListener() {
-
-
-
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
-
 
                     if (infoHolder.getUserProfiles().size() != 0) {
                         String remname = removefield.getText();
@@ -234,30 +273,21 @@ public class Settings extends JPanel{
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }
-
-
                     }
                 }
             });
 
             butprofileadd.addActionListener(new ActionListener() {
 
-
-
-
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
 
                     if (infoHolder.getUserProfiles().size()<3) {
                     String addlet = addfieldlet.getText();
                     String addname = addfieldname.getText();
                     Date adddate = Date.valueOf(addfieldbirth.getText());
 
-
                     try {
-
-
                         PreparedStatement lt1 = connection.prepareStatement("INSERT INTO customerprofiles (customerid, userprofile, name, birthdate) VALUES (?,?,?,?)");
                         lt1.setInt(1,infoHolder.getId());
                         lt1.setString(2,addlet);
@@ -265,14 +295,9 @@ public class Settings extends JPanel{
                         lt1.setDate(4,adddate);
                         lt1.executeQuery();
 
-
-
-
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
-
-
                 }
                 }
             });
@@ -306,14 +331,7 @@ public class Settings extends JPanel{
                             profileshown.revalidate();
                             profileshown.repaint();
 
-
-
                         }
-
-
-
-
-
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -346,28 +364,127 @@ public class Settings extends JPanel{
                         st1.setString(6, country);
                         st1.setString(7, agrestrict);
                         st1.setDate(8, date_added);
-
                         st1.executeQuery();
 
                     } catch (SQLException m){
-                        m.printStackTrace();
                     }
                 }
             });
 
+            butactoradd.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String actormovie = addactormovie.getText();
+                    String type = "M";
+                    String actor = addactors.getText();
+
+                    try {
+                        PreparedStatement st2 = connection.prepareStatement("INSERT INTO actors (mediaid, type, actor) VALUES (?,?,?)");
+                        st2.setInt(1, Integer.parseInt(actormovie));
+                        st2.setString(2, type);
+                        st2.setString(3, actor);
+                        st2.executeQuery();
+                    } catch (SQLException a){
+                    }
+
+                }
+            });
+
+            butdirectoradd.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String directormovie = adddirectormovie.getText();
+                    String type = "M";
+                    String director = adddirectors.getText();
+
+                    try {
+                        PreparedStatement st3 = connection.prepareStatement("INSERT INTO directors (mediaid, type, director) VALUES (?,?,?)");
+                        st3.setInt(1, Integer.parseInt(directormovie));
+                        st3.setString(2, type);
+                        st3.setString(3, director);
+                        st3.executeQuery();
+                    } catch (SQLException d){
+                    }
+                }
+            });
+
+            butgenreadd.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String genremovie = addgenremovie.getText();
+                    String type = "M";
+                    String genre = addgenres.getText();
+
+                    try {
+                        PreparedStatement st4 = connection.prepareStatement("INSERT INTO genres (mediaid, type, genre) VALUES (?,?,?)");
+                        st4.setInt(1, Integer.parseInt(genremovie));
+                        st4.setString(2, type);
+                        st4.setString(3, genre);
+                        st4.executeQuery();
+                    } catch (SQLException g){
+                    }
+                }
+            });
+
+            butremakeadd.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String remakemovie = addremakemovie.getText();
+                    String type = "M";
+                    String remake = addremakes.getText();
+
+                    try {
+                        PreparedStatement st5 = connection.prepareStatement("INSERT INTO remakes (mediaid, media_type, original_year) VALUES (?,?,?)");
+                        st5.setInt(1, Integer.parseInt(remakemovie));
+                        st5.setString(2, type);
+                        st5.setInt(3, Integer.parseInt(remake));
+                        st5.executeQuery();
+                    } catch (SQLException r){
+                    }
+                }
+            });
+
+            butmovieremove.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String movieid = removemovie.getText();
+
+                    try {
+                        PreparedStatement st6 = connection.prepareStatement("DELETE FROM movies WHERE movieid=?");
+                        st6.setInt(1, Integer.parseInt(movieid));
+                        st6.executeQuery();
+                    } catch (SQLException rm){
+
+                    }
+                }
+            });
+
+            butcustomeradd.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String customerid = addcustomerid.getText();
+                    String email = addcustomeremail.getText();
+                    String pw = addcustomerpw.getText();
+                    String phone = addcustomerphone.getText();
+                    String address = addcustomeraddress.getText();
+                    String discount = addcustomerdiscount.getText();
+
+                    try {
+                        PreparedStatement st7 = connection.prepareStatement("INSERT INTO customer (customerid, email, password, phonenumber, address, disount) VALUES (?,?,?,?,?,?)");
+                        st7.setInt(1, Integer.parseInt(customerid));
+                        st7.setString(2, email);
+                        st7.setString(3, pw);
+                        st7.setString(4, phone);
+                        st7.setString(5, address);
+                        st7.setInt(6, Integer.parseInt(discount));
+                        st7.executeQuery();
+                    } catch (SQLException ac){
+                        ac.printStackTrace();
+                    }
+                }
+            });
 
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
-
-
-
-
-
-
-
-
-
     }
-
 }

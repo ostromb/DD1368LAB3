@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class InfoHolder {
     private int id;
     private String profile;
@@ -7,6 +9,7 @@ public class InfoHolder {
         id = 0;
         profile = "";
         userProfile = 'z';
+
     }
 
     public boolean hasProfile() {

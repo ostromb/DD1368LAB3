@@ -43,6 +43,7 @@ public class Menu extends JFrame {
         this.dataEntry = dataEntry;
         JPanel pn2 = new Watchlist(infoHolder, connection, dataEntry);
         JPanel pn1 = new Search(infoHolder, connection,dataEntry);
+        JPanel pn3 = new Settings(infoHolder, connection,dataEntry);
         tabbedPane1.add("Search",pn1);
         tabbedPane1.add("Watchlist",pn2);
         tabbedPane1.add("Settings",pn3);

@@ -38,6 +38,7 @@ public class Settings extends JPanel{
         add(centerscreen, BorderLayout.CENTER);
         centerscreen.add(profiles, BorderLayout.WEST);
         centerscreen.add(profileshown, BorderLayout.EAST);
+
         profiles.add(addfieldlet);
         profiles.add(addfieldname);
         profiles.add(addfieldbirth);
@@ -57,20 +58,20 @@ public class Settings extends JPanel{
         }
 
         JPanel movies = new JPanel();
-        JButton butmovieadd = new JButton("Add movie");
-        JButton butmovieupdate = new JButton("Update");
-        JLabel lbladdmovie = new JLabel("Add information about new movie");
-        JTextField addmovieid = new JTextField(20);
-        JTextField addmoviename = new JTextField(20);
-        JTextField addmovieyear = new JTextField(4);
+        JButton butmovieadd = new JButton("Add movie or info to movie");
+        JButton butremovemovies = new JButton("Remove movie");
+        JTextField addmovieid = new JTextField(15);
+        JTextField addmoviename = new JTextField(15);
+        JTextField addmovieyear = new JTextField(15);
         JTextField addmovierating = new JTextField(2);
-        JTextField addmovielength = new JTextField(20);
+        JTextField addmovielength = new JTextField(4);
         JTextField addmoviecountry = new JTextField(20);
         JTextField addmovieagrestrict = new JTextField(1);
-        JTextField addmoviedateadded = new JTextField(20);
+        JTextField addmoviedateadded = new JTextField(10);
         add(movies, BorderLayout.SOUTH);
         movies.add(butmovieadd);
-        movies.add(butmovieupdate);
+        movies.add(butremovemovies);
+        //movies.add(butmovieupdate);
         movies.add(addmovieid);
         movies.add(addmoviename);
         movies.add(addmovieyear);
@@ -271,7 +272,7 @@ public class Settings extends JPanel{
                         st1.executeQuery();
 
                     } catch (SQLException m){
-                        m.printStackTrace();
+
                     }
                 }
             });

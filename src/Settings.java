@@ -16,25 +16,35 @@ public class Settings extends JPanel{
     private JLabel[] lblprof = new JLabel[3];
     private JLabel lblexp = new JLabel("Hello");
     private JLabel lblstart = new JLabel("Hello");
+    private JLabel lblcustomerid = new JLabel("");
     private int months = 0;
+    private JTextField cardnr = new JTextField("");
+    private JTextField cardissue = new JTextField("");
+    private JTextField carddate = new JTextField("");
+    private JTextField cardplan = new JTextField("");
+    private JTextField cardamount = new JTextField("");
     public Settings(InfoHolder infoHolder, Connection connection, DataEntry dataEntry)  {
         setSize(500,500);
         setVisible(true);
         JPanel subpanel = new JPanel();
         JPanel subs = new JPanel();
+        JPanel subsf = new JPanel();
         JPanel subsdur = new JPanel();
+        JPanel customerpanel = new JPanel();
 
 
         JPanel centerscreen = new JPanel();
 
         JButton butupdatesub = new JButton("Update Subscription");
         JLabel lblsubs = new JLabel("Manage Subscription");
-        subs.add(lblsubs);
+        subsf.add(lblsubs);
 
         setLayout(new BorderLayout());
         add(subpanel,BorderLayout.NORTH);
-        subpanel.add(subsdur,BorderLayout.EAST);
-        subpanel.add(subs,BorderLayout.WEST);
+        subpanel.add(subsdur,BorderLayout.SOUTH);
+        subpanel.add(subsf,BorderLayout.WEST);
+        subpanel.add(subs,BorderLayout.EAST);
+
         JPanel profiles = new JPanel();
         JPanel profileshown = new JPanel();
         JButton butprofileadd = new JButton("Add Profile");
@@ -47,6 +57,16 @@ public class Settings extends JPanel{
         add(centerscreen, BorderLayout.CENTER);
         centerscreen.add(profiles, BorderLayout.WEST);
         centerscreen.add(profileshown, BorderLayout.EAST);
+        centerscreen.add(customerpanel, BorderLayout.NORTH);
+        JButton butchangeid = new JButton("Change Customer ID");
+        JTextField changefield  = new JTextField(4);
+        lblcustomerid  = new JLabel(String.valueOf(infoHolder.getId()));
+
+        customerpanel.add(butchangeid);
+        customerpanel.add(changefield);
+        customerpanel.revalidate();
+        customerpanel.repaint();
+
 
         profiles.add(addfieldlet);
         profiles.add(addfieldname);
@@ -150,34 +170,28 @@ public class Settings extends JPanel{
             st.setInt(1, infoHolder.getId());
             ResultSet rs = st.executeQuery();
             rs.next();
-            JTextField cardnr = new JTextField(rs.getString(2));
-            JTextField cardissue = new JTextField(rs.getString(3));
+            final JTextField[] cardnr = {new JTextField(rs.getString(2))};
+            final JTextField[] cardissue = {new JTextField(rs.getString(3))};
             String crd = Integer.toString((rs.getInt(4)));
-            JTextField carddate = new JTextField(crd);
-            JTextField cardplan = new JTextField(rs.getString(5));
+            final JTextField[] carddate = {new JTextField(crd)};
+            final JTextField[] cardplan = {new JTextField(rs.getString(5))};
             String cra = Integer.toString(rs.getInt(6));
-            JTextField cardamount = new JTextField(cra);
+            final JTextField[] cardamount = {new JTextField(cra)};
             lblstart = new JLabel(rs.getString(7));
             lblexp = new JLabel(rs.getString(10));
 
-
-
-            subs.add(cardnr);
-            subs.add(cardissue);
-            subs.add(carddate);
-            subs.add(cardplan);
-            subs.add(cardamount);
+            subs.add(cardnr[0]);
+            subs.add(cardissue[0]);
+            subs.add(carddate[0]);
+            subs.add(cardplan[0]);
+            subs.add(cardamount[0]);
             subsdur.add(lblstart);
             subsdur.add(lblexp);
 
             subsdur.revalidate();
             subsdur.repaint();
 
-
-
-
-
-            subs.add(butupdatesub);
+            subsf.add(butupdatesub);
             revalidate();
 
             /** SUB UPDATE */
@@ -185,11 +199,11 @@ public class Settings extends JPanel{
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    String c1 = cardnr.getText();
-                    String c2 = cardissue.getText();
-                    int c3 = Integer.parseInt(carddate.getText());
-                    String c4 = cardplan.getText();
-                    int c5 = Integer.parseInt(cardamount.getText());
+                    String c1 = cardnr[0].getText();
+                    String c2 = cardissue[0].getText();
+                    int c3 = Integer.parseInt(carddate[0].getText());
+                    String c4 = cardplan[0].getText();
+                    int c5 = Integer.parseInt(cardamount[0].getText());
                     try {
                         Calendar startydate = Calendar.getInstance(); //This to obtain today's date in our Calendar var.
 
@@ -223,6 +237,10 @@ public class Settings extends JPanel{
                         lblstart = new JLabel(srtstrdate);
                         lblexp = new JLabel(expstrdate);
 
+
+
+
+
                         subsdur.removeAll();
                         subsdur.add(lblstart);
                         subsdur.add(lblexp);
@@ -235,13 +253,59 @@ public class Settings extends JPanel{
 
                 }
             });
+            subs.add(lblcustomerid);
+
+            butchangeid.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        int cidnew = Integer.parseInt(changefield.getText());
+
+
+                        infoHolder.setId(cidnew);
+                        JButton butchangeid = new JButton("Change Customer ID");
+                        JTextField changefield = new JTextField(4);
+                        lblcustomerid = new JLabel(String.valueOf(infoHolder.getId()));
+                        PreparedStatement st = connection.prepareStatement("SELECT * FROM (SELECT * FROM (SELECT subscription.*, customerid FROM subscription INNER JOIN paymentinfo p on subscription.subscriptionid = p.subscriptionid) as k WHERE customerid = ?) as l INNER JOIN subscriptionduration ON l.subscriptionid = subscriptionduration.subscriptinid");
+                        st.setInt(1, infoHolder.getId());
+                        ResultSet rs = st.executeQuery();
+                        rs.next();
+
+                        final JTextField[] cardnr = {new JTextField(rs.getString(2))};
+                        final JTextField[] cardissue = {new JTextField(rs.getString(3))};
+                        String crd = Integer.toString((rs.getInt(4)));
+                        final JTextField[] carddate = {new JTextField(crd)};
+                        final JTextField[] cardplan = {new JTextField(rs.getString(5))};
+                        String cra = Integer.toString(rs.getInt(6));
+                        final JTextField[] cardamount = {new JTextField(cra)};
+
+                        subs.removeAll();
+                        subs.add(cardnr[0]);
+                        subs.add(cardissue[0]);
+                        subs.add(carddate[0]);
+                        subs.add(cardplan[0]);
+                        subs.add(cardamount[0]);
+                        subs.add(lblcustomerid);
+                        subs.revalidate();
+                        subs.repaint();
+
+
+
+                        customerpanel.revalidate();
+                        customerpanel.repaint();
+
+                    } catch (Exception a) {
+
+                    }
+                }
+            });
 
             butprofileremove.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    if (infoHolder.getUserProfiles().size() != 0) {
+
                         String remname = removefield.getText();
                         try {
                             PreparedStatement lt1 = connection.prepareStatement("DELETE FROM customerprofiles WHERE customerid = ? AND userprofile = ?");
@@ -253,7 +317,7 @@ public class Settings extends JPanel{
                         } catch (SQLException throwables) {
                             throwables.printStackTrace();
                         }
-                    }
+
                 }
             });
 

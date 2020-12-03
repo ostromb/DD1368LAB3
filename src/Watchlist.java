@@ -20,6 +20,8 @@ public class Watchlist extends JPanel{
         this.infoHolder = infoHolder;
         this.connection = connection;
         this.dataEntry = dataEntry;
+        JTextField movieid = new JTextField(4);
+        JTextField newrating = new JTextField(2);
         WatchlistTable = new JTable();
         MovieInfo = new JTable();
         panel1 = new JPanel();
@@ -28,22 +30,28 @@ public class Watchlist extends JPanel{
         add(Label);
         add(WatchlistTable);
         add(MovieInfo);
+        add(movieid);
+        add(newrating);
         add(button1);
 
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    int pos = Integer.parseInt(WatchlistTable.getValueAt(0, 1).toString());
-                    PreparedStatement st = connection.prepareStatement("UPDATE watchlist SET watchlist.rating=? WHERE customerid=? AND userprofile=?");
-                    st.setInt(1, pos);
-                    st.setInt(2, infoHolder.getId());
-                    st.setString(3, "" + infoHolder.getUserProfile());
-                    st.executeUpdate();
+                String rating = newrating.getText();
+                Integer customer = infoHolder.getId();
+                String profile = infoHolder.getProfile();
+                String watchid = movieid.getText();
 
+                try {
+                    PreparedStatement st = connection.prepareStatement("UPDATE watchlist SET rating=? WHERE customerid=? AND userprofile=? AND mediaid=?");
+                    st.setInt(1, Integer.parseInt(rating));
+                    st.setInt(2, customer);
+                    st.setString(3, profile);
+                    st.setInt(4, Integer.parseInt(watchid));
+                    st.executeQuery();
                 }
                 catch(SQLException d){
-
+                    d.printStackTrace();
                 }
             }
         });
@@ -55,7 +63,6 @@ public class Watchlist extends JPanel{
             ResultSet rs1 = st1.executeQuery();
 
             WatchlistTable.setModel(DbUtils.resultSetToTableModel(rs1));
-
         }
         catch (SQLException e) {
         JOptionPane.showMessageDialog(null, e);

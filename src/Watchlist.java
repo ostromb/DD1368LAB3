@@ -91,7 +91,7 @@ public class Watchlist extends JPanel{
                     d.printStackTrace();
                 }
             }
-        }); 
+        });
 
         button2.addActionListener(new ActionListener() {
             @Override

@@ -550,12 +550,13 @@ public class Settings extends JPanel{
                 }
             });
 
-            /*butupdaterating.addActionListener(new ActionListener() {
+            butupdaterating.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+
                     String rating = addnewrating.getText();
                     Integer customer = infoHolder.getId();
-                    String profile = infoHolder.getProfile();
+                    String profile = "" + infoHolder.getUserProfile();
                     String watchid = addratemovie.getText();
 
                     try {
@@ -564,13 +565,14 @@ public class Settings extends JPanel{
                         st9.setInt(2, customer);
                         st9.setString(3, profile);
                         st9.setInt(4, Integer.parseInt(watchid));
+                        System.out.println(rating + customer + profile + watchid);
                         st9.executeUpdate();
                     }
                     catch(SQLException r){
                         r.printStackTrace();
                     }
                 }
-            });*/
+            });
 
         } catch (SQLException throwables) {
         }

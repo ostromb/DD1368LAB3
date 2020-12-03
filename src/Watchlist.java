@@ -31,33 +31,33 @@ public class Watchlist extends JPanel{
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
         JLabel Label = new JLabel();
-        JButton button1 = new JButton();
+        //JButton button1 = new JButton();
         JButton button2 = new JButton();
         JButton button3 = new JButton();
         JTextField movieid = new JTextField(4);
         JTextField newrating = new JTextField(2);
         JTextField addwatchlist = new JTextField(7);
-        JTextField addcustomer = new JTextField(4);
+        JTextField addcustomer = new JTextField(3);
         JTextField adduser = new JTextField(1);
         JTextField addmedia = new JTextField(4);
         JTextField addmediatype = new JTextField(1);
         JTextField addrating = new JTextField(1);
-        JTextField addprogress = new JTextField(1);
+        JTextField addprogress = new JTextField(2);
         JTextField removewatchlist = new JTextField(4);
         WatchlistTable = new JTable();
         MovieInfo = new JTable();
         panel1 = new JPanel();
         panel2 = new JPanel();
         Label = new JLabel("---------- mediaid | Your rating | Progress (%) | Movie title | Release year | Average rating | Length (minutes) | Country ----------");
-        button1 = new JButton("Update Your Rating");
+        //button1 = new JButton("Update Your Rating");
         button2 = new JButton("Add to Watchlist");
         button3 = new JButton("Remove from Watchlist");
         add(Label);
         add(WatchlistTable);
         add(MovieInfo);
-        add(movieid);
-        add(newrating);
-        add(button1);
+        //add(movieid);
+        //add(newrating);
+        //add(button1);
         add(panel1, BorderLayout.NORTH);
         panel1.add(removewatchlist);
         panel1.add(button3);
@@ -71,7 +71,7 @@ public class Watchlist extends JPanel{
         panel2.add(addprogress);
         panel2.add(button2);
 
-        button1.addActionListener(new ActionListener() {
+        /*button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String rating = newrating.getText();
@@ -85,27 +85,29 @@ public class Watchlist extends JPanel{
                     st.setInt(2, customer);
                     st.setString(3, profile);
                     st.setInt(4, Integer.parseInt(watchid));
+                    System.out.println(rating + customer + profile + watchid);
                     st.executeUpdate();
+
                 }
                 catch(SQLException d){
                     d.printStackTrace();
                 }
             }
-        });
+        });*/
 
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String watchlistid = addwatchlist.getText();
                 String customerid = addcustomer.getText();
-                String user = adduser.getText();
+                String user = "" + adduser.getText();
                 String mediaid = addmedia.getText();
-                String mediatype = addmediatype.getText();
+                String mediatype = "" + addmediatype.getText();
                 String rating = addrating.getText();
                 String progress = addprogress.getText();
 
                 try {
-                    PreparedStatement st2 = connection.prepareStatement("INSERT INTO Watchlist (watchlistid, customerid, userprofile, mediaid, media_type, rating, progress) VALUES(?,?,?,?,?,?,?)");
+                    PreparedStatement st2 = connection.prepareStatement("INSERT INTO watchlist (watchlistid, customerid, userprofile, mediaid, media_type, rating, progress) VALUES(?,?,?,?,?,?,?)");
                     st2.setInt(1, Integer.parseInt(watchlistid));
                     st2.setInt(2, Integer.parseInt(customerid));
                     st2.setString(3, user);
@@ -113,6 +115,7 @@ public class Watchlist extends JPanel{
                     st2.setString(5, mediatype);
                     st2.setInt(6, Integer.parseInt(rating));
                     st2.setInt(7, Integer.parseInt(progress));
+                    st2.executeQuery();
                 }
                 catch(SQLException w){
                     w.printStackTrace();
@@ -125,10 +128,10 @@ public class Watchlist extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 String media = removewatchlist.getText();
                 Integer customer = infoHolder.getId();
-                String profile = infoHolder.getProfile();
+                String profile = "" + infoHolder.getUserProfile();
 
                 try {
-                    PreparedStatement st3 = connection.prepareStatement("DELETE FROM Watchlist WHERE mediaid=? AND customerid=? AND userprofile=?");
+                    PreparedStatement st3 = connection.prepareStatement("DELETE FROM watchlist WHERE mediaid=? AND customerid=? AND userprofile=?");
                     st3.setInt(1, Integer.parseInt(media));
                     st3.setInt(2, customer);
                     st3.setString(3, profile);

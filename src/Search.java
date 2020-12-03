@@ -117,18 +117,19 @@ public class Search extends JPanel {
                                             actlist.add(actrs.getString(1));
                                         }
 
-                                        PreparedStatement lengp = connection.prepareStatement("SELECT length,country,year FROM movies WHERE movieid=?");
+                                        PreparedStatement lengp = connection.prepareStatement("SELECT length,country,year, rating FROM movies WHERE movieid=?");
                                         lengp.setInt(1,mid);
                                         ResultSet lengrs = lengp.executeQuery();
                                         lengrs.next();
                                         String lengthv = lengrs.getString("length");
                                         String countryv = lengrs.getString("country");
                                         String yearv = lengrs.getString("year");
+                                        String ratingv = lengrs.getString("rating");
 
 
 
 
-                                        JOptionPane.showMessageDialog(null, genlist+"\n"+dirlist+"\n"+actlist+"\n"+lengthv+"\n"+countryv+"\n"+yearv);
+                                        JOptionPane.showMessageDialog(null, genlist+"\n"+dirlist+"\n"+actlist+"\n"+lengthv+"\n"+countryv+"\n"+yearv+"\n"+ratingv);
                                     } catch (SQLException throwables) {
                                         throwables.printStackTrace();
                                     }

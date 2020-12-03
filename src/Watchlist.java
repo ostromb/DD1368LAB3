@@ -35,6 +35,7 @@ public class Watchlist extends JPanel{
         JButton button1 = new JButton();
         JButton button2 = new JButton();
         JButton button3 = new JButton();
+        JTextField changeprofile = new JTextField(1);
         JTextField movieid = new JTextField(4);
         JTextField newrating = new JTextField(2);
         JTextField addwatchlist = new JTextField(7);
@@ -50,9 +51,9 @@ public class Watchlist extends JPanel{
         panel1 = new JPanel();
         panel2 = new JPanel();
         Label = new JLabel("---------- mediaid | Your rating | Progress (%) | Movie title | Release year | Average rating | Length (minutes) | Country ----------");
-        button1 = new JButton("Update Your Rating");
-        button2 = new JButton("Add to Watchlist");
-        button3 = new JButton("Remove from Watchlist");
+        button1 = new JButton("Change Profile");
+        button2 = new JButton("Add");
+        button3 = new JButton("Remove");
         add(Label);
         panel3.add(WatchlistTable);
         add(MovieInfo);
@@ -63,6 +64,8 @@ public class Watchlist extends JPanel{
         add(panel3, BorderLayout.WEST);
         add(panel2, BorderLayout.CENTER);
         add(panel1, BorderLayout.EAST);
+        panel1.add(changeprofile);
+        panel1.add(button1);
         panel1.add(removewatchlist);
         panel1.add(button3);
 
@@ -86,24 +89,21 @@ public class Watchlist extends JPanel{
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String rating = newrating.getText();
-                Integer customer = infoHolder.getId();
-                String profile = infoHolder.getProfile();
-                String watchid = movieid.getText();
+                Integer customerid = infoHolder.getId();
+                Character cpnew = changeprofile.getText().charAt(0);
+                infoHolder.setUserProfile(cpnew);
 
                 try {
-                    PreparedStatement st = connection.prepareStatement("UPDATE watchlist SET rating=? WHERE customerid=? AND userprofile=? AND mediaid=?");
-                    st.setInt(1, Integer.parseInt(rating));
-                    st.setInt(2, customer);
-                    st.setString(3, profile);
-                    st.setInt(4, Integer.parseInt(watchid));
+                    PreparedStatement st = connection.prepareStatement("SELECT * FROM customerprofiles WHERE customerid=? AND userprofile=?");
+                    st.setInt(1, customerid);
+                    st.setString(2, "" + cpnew);
                     st.executeQuery();
 
                 }
 
 
-                catch(SQLException d){
-                    d.printStackTrace();
+                catch(SQLException cp){
+                    cp.printStackTrace();
                 }
             }
         });

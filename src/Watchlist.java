@@ -113,6 +113,7 @@ public class Watchlist extends JPanel{
                     st2.setString(5, mediatype);
                     st2.setInt(6, Integer.parseInt(rating));
                     st2.setInt(7, Integer.parseInt(progress));
+                    st2.executeQuery();
                 }
                 catch(SQLException w){
                     w.printStackTrace();

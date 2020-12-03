@@ -77,6 +77,7 @@ public class Settings extends JPanel{
         JButton butgenreadd = new JButton("Add genre");
         JButton butremakeadd = new JButton("Add remake");
         JButton butcustomeradd = new JButton("Add customer");
+        JButton butcustomerremove = new JButton("Remove customer");
 
         JTextField addmovieid = new JTextField(15);
         JTextField removemovie = new JTextField(15);
@@ -97,6 +98,7 @@ public class Settings extends JPanel{
         JTextField addremakemovie = new JTextField(4);
         JTextField addremakes = new JTextField(4);
         JTextField addcustomerid = new JTextField(3);
+        JTextField removecustomerid = new JTextField(3);
         JTextField addcustomeremail = new JTextField(25);
         JTextField addcustomerpw = new JTextField(15);
         JTextField addcustomerphone = new JTextField(12);
@@ -139,6 +141,8 @@ public class Settings extends JPanel{
         fieldpanel3.add(addcustomerphone);
         fieldpanel3.add(addcustomeraddress);
         fieldpanel3.add(addcustomerdiscount);
+        fieldpanel3.add(butcustomerremove);
+        fieldpanel3.add(removecustomerid);
 
 
         try {
@@ -456,6 +460,20 @@ public class Settings extends JPanel{
                         st7.executeQuery();
                     } catch (SQLException ac){
                         ac.printStackTrace();
+                    }
+                }
+            });
+
+            butcustomerremove.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String customerid = removecustomerid.getText();
+
+                    try {
+                        PreparedStatement st8 = connection.prepareStatement("DELETE FROM customer WHERE customerid=?");
+                        st8.setInt(1, Integer.parseInt(customerid));
+                        st8.executeQuery();
+                    } catch (SQLException rc){
                     }
                 }
             });

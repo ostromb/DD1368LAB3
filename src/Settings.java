@@ -14,12 +14,14 @@ public class Settings extends JPanel{
     private JLabel lblexp = new JLabel("Hello");
     private JLabel lblstart = new JLabel("Hello");
     private JLabel lblcustomerid = new JLabel("");
+
     private int months = 0;
     private JTextField cardnr = new JTextField("");
     private JTextField cardissue = new JTextField("");
     private JTextField carddate = new JTextField("");
     private JTextField cardplan = new JTextField("");
     private JTextField cardamount = new JTextField("");
+    private JTextField carddisc = new JTextField("");
     public Settings(InfoHolder infoHolder, Connection connection, DataEntry dataEntry)  {
         setSize(500,500);
         setVisible(true);
@@ -182,12 +184,19 @@ public class Settings extends JPanel{
             final JTextField[] cardamount = {new JTextField(cra)};
             lblstart = new JLabel(rs.getString(7));
             lblexp = new JLabel(rs.getString(10));
+            PreparedStatement ts = connection.prepareStatement("SELECT disount FROM customer WHERE customerid =?");
+            ts.setInt(1,infoHolder.getId());
+            ResultSet rss = ts.executeQuery();
+            rss.next();
+            String disstr = Integer.toString(rss.getInt(1));
+            final JTextField[] carddisc = {new JTextField(disstr)};
 
             subs.add(cardnr[0]);
             subs.add(cardissue[0]);
             subs.add(carddate[0]);
             subs.add(cardplan[0]);
             subs.add(cardamount[0]);
+            subs.add(carddisc[0]);
 
             subsdur.add(lblstart);
             subsdur.add(lblexp);
@@ -212,6 +221,7 @@ public class Settings extends JPanel{
                     int c3 = Integer.parseInt(carddate[0].getText());
                     String c4 = cardplan[0].getText();
                     int c5 = Integer.parseInt(cardamount[0].getText());
+                    int c6 = Integer.parseInt(carddisc[0].getText());
                     try {
                         Calendar startydate = Calendar.getInstance(); //This to obtain today's date in our Calendar var.
 
@@ -230,6 +240,11 @@ public class Settings extends JPanel{
                         st1.setInt(7, infoHolder.getId());
                         st1.executeUpdate();
 
+                        PreparedStatement trs = connection.prepareStatement("UPDATE customer SET disount = ? WHERE customerid = ?");
+                        trs.setInt(1,c6);
+                        trs.setInt(2,infoHolder.getId());
+                        trs.executeUpdate();
+
 
 
                         infoHolder.setMonthplancost(c4);
@@ -244,6 +259,17 @@ public class Settings extends JPanel{
                         durp.executeUpdate();
                         lblstart = new JLabel(srtstrdate);
                         lblexp = new JLabel(expstrdate);
+
+                        subs.removeAll();
+                        subs.add(cardnr[0]);
+                        subs.add(cardissue[0]);
+                        subs.add(carddate[0]);
+                        subs.add(cardplan[0]);
+                        subs.add(cardamount[0]);
+                        subs.add(carddisc[0]);
+                        subs.add(lblcustomerid);
+                        subs.revalidate();
+                        subs.repaint();
 
 
 
@@ -286,6 +312,13 @@ public class Settings extends JPanel{
                         final JTextField[] cardplan = {new JTextField(rs.getString(5))};
                         String cra = Integer.toString(rs.getInt(6));
                         final JTextField[] cardamount = {new JTextField(cra)};
+                        PreparedStatement ts = connection.prepareStatement("SELECT disount FROM customer WHERE customerid =?");
+                        ts.setInt(1,infoHolder.getId());
+                        ResultSet rss = ts.executeQuery();
+                        rss.next();
+                        String disstr = Integer.toString(rss.getInt(1));
+                        final JTextField[] carddisc = {new JTextField(disstr)};
+
 
                         subs.removeAll();
                         subs.add(cardnr[0]);
@@ -293,6 +326,7 @@ public class Settings extends JPanel{
                         subs.add(carddate[0]);
                         subs.add(cardplan[0]);
                         subs.add(cardamount[0]);
+                        subs.add(carddisc[0]);
                         subs.add(lblcustomerid);
                         subs.revalidate();
                         subs.repaint();
@@ -345,7 +379,7 @@ public class Settings extends JPanel{
                         lt1.setString(2,addlet);
                         lt1.setString(3,addname);
                         lt1.setDate(4,adddate);
-                        lt1.executeQuery();
+                        lt1.executeUpdate();
 
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();

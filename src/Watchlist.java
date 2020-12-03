@@ -55,9 +55,9 @@ public class Watchlist extends JPanel{
         add(Label);
         add(WatchlistTable);
         add(MovieInfo);
-        add(movieid);
-        add(newrating);
-        add(button1);
+        //add(movieid);
+        //add(newrating);
+        //add(button1);
         add(panel1, BorderLayout.NORTH);
         panel1.add(removewatchlist);
         panel1.add(button3);

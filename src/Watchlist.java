@@ -86,6 +86,8 @@ public class Watchlist extends JPanel{
 
             WatchlistTable.setModel(DbUtils.resultSetToTableModel(rs1));
 
+            JTable finalWatchlistTable = WatchlistTable;
+
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,6 +101,16 @@ public class Watchlist extends JPanel{
                     st.setString(2, "" + cpnew);
                     st.executeQuery();
 
+                    panel3.removeAll();
+
+                    PreparedStatement st1 = connection.prepareStatement("SELECT mediaid, watchlist.rating, watchlist.progress, movies.name, movies.year, movies.rating, movies.length, movies.country FROM watchlist INNER JOIN movies ON mediaid=movieid WHERE customerid=? AND userprofile=?");
+                    st1.setInt(1, infoHolder.getId());
+                    st1.setString(2, "" + infoHolder.getUserProfile());
+                    ResultSet rs1 = st1.executeQuery();
+
+                    finalWatchlistTable.setModel(DbUtils.resultSetToTableModel(rs1));
+                    panel3.add(finalWatchlistTable);
+
                 }
 
 
@@ -108,7 +120,7 @@ public class Watchlist extends JPanel{
             }
         });
 
-            JTable finalWatchlistTable = WatchlistTable;
+
             button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -1,8 +1,11 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.border.Border;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import net.proteanit.sql.DbUtils;
 import java.sql.PreparedStatement;
@@ -40,7 +43,7 @@ public class Watchlist extends JPanel{
         JTextField addmediatype = new JTextField(1);
         JTextField addrating = new JTextField(1);
         JTextField addprogress = new JTextField(1);
-        JTextField removecustomer = new JTextField(4);
+        JTextField removewatchlist = new JTextField(4);
         WatchlistTable = new JTable();
         MovieInfo = new JTable();
         panel1 = new JPanel();
@@ -56,7 +59,7 @@ public class Watchlist extends JPanel{
         add(newrating);
         add(button1);
         add(panel1, BorderLayout.NORTH);
-        panel1.add(removecustomer);
+        panel1.add(removewatchlist);
         panel1.add(button3);
         add(panel2, BorderLayout.SOUTH);
         panel2.add(addwatchlist);
@@ -82,13 +85,13 @@ public class Watchlist extends JPanel{
                     st.setInt(2, customer);
                     st.setString(3, profile);
                     st.setInt(4, Integer.parseInt(watchid));
-                    st.executeQuery();
+                    st.executeUpdate();
                 }
                 catch(SQLException d){
                     d.printStackTrace();
                 }
             }
-        });
+        }); 
 
         button2.addActionListener(new ActionListener() {
             @Override
@@ -120,11 +123,15 @@ public class Watchlist extends JPanel{
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String watchlistid = removecustomer.getText();
+                String media = removewatchlist.getText();
+                Integer customer = infoHolder.getId();
+                String profile = infoHolder.getProfile();
 
                 try {
-                    PreparedStatement st3 = connection.prepareStatement("DELETE FROM Watchlist WHERE watchlistid=?");
-                    st3.setInt(1, Integer.parseInt(watchlistid));
+                    PreparedStatement st3 = connection.prepareStatement("DELETE FROM Watchlist WHERE mediaid=? AND customerid=? AND userprofile=?");
+                    st3.setInt(1, Integer.parseInt(media));
+                    st3.setInt(2, customer);
+                    st3.setString(3, profile);
                     st3.executeQuery();
                 } catch (SQLException rw){
                     rw.printStackTrace();

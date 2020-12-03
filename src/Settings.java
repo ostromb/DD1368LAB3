@@ -75,6 +75,7 @@ public class Settings extends JPanel{
         JButton butremakeadd = new JButton("Add remake");
         JButton butcustomeradd = new JButton("Add customer");
         JButton butcustomerremove = new JButton("Remove customer");
+        JButton butupdaterating = new JButton("Update rate");
 
         JTextField addmovieid = new JTextField(15);
         JTextField removemovie = new JTextField(15);
@@ -101,6 +102,8 @@ public class Settings extends JPanel{
         JTextField addcustomerphone = new JTextField(12);
         JTextField addcustomeraddress = new JTextField(25);
         JTextField addcustomerdiscount = new JTextField(3);
+        JTextField addratemovie = new JTextField(4);
+        JTextField addnewrating = new JTextField(2);
 
         bottomscreen.setPreferredSize(new Dimension((int)getToolkit().getScreenSize().getWidth(), 500));
         add(bottomscreen, BorderLayout.SOUTH);
@@ -140,6 +143,9 @@ public class Settings extends JPanel{
         fieldpanel3.add(addcustomerdiscount);
         fieldpanel3.add(butcustomerremove);
         fieldpanel3.add(removecustomerid);
+        fieldpanel3.add(butupdaterating);
+        fieldpanel3.add(addratemovie);
+        fieldpanel3.add(addnewrating);
 
 
         try {
@@ -157,8 +163,6 @@ public class Settings extends JPanel{
             lblstart = new JLabel(rs.getString(7));
             lblexp = new JLabel(rs.getString(10));
 
-
-
             subs.add(cardnr);
             subs.add(cardissue);
             subs.add(carddate);
@@ -169,10 +173,6 @@ public class Settings extends JPanel{
 
             subsdur.revalidate();
             subsdur.repaint();
-
-
-
-
 
             subs.add(butupdatesub);
             revalidate();
@@ -474,6 +474,28 @@ public class Settings extends JPanel{
                     }
                 }
             });
+
+            /*butupdaterating.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String rating = addnewrating.getText();
+                    Integer customer = infoHolder.getId();
+                    String profile = infoHolder.getProfile();
+                    String watchid = addratemovie.getText();
+
+                    try {
+                        PreparedStatement st9 = connection.prepareStatement("UPDATE watchlist SET rating=? WHERE customerid=? AND userprofile=? AND mediaid=?");
+                        st9.setInt(1, Integer.parseInt(rating));
+                        st9.setInt(2, customer);
+                        st9.setString(3, profile);
+                        st9.setInt(4, Integer.parseInt(watchid));
+                        st9.executeUpdate();
+                    }
+                    catch(SQLException r){
+                        r.printStackTrace();
+                    }
+                }
+            });*/
 
         } catch (SQLException throwables) {
         }

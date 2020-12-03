@@ -2,6 +2,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import net.proteanit.sql.DbUtils;
 import java.sql.PreparedStatement;
 import java.awt.*;
@@ -10,11 +12,13 @@ public class Watchlist extends JPanel{
     private Connection connection;
     private InfoHolder infoHolder;
     private DataEntry dataEntry;
-    private JTable WatchlistTable;
-    private JTable MovieInfo;
-    private JPanel panel1;
-    private JLabel Label;
-    private JButton button1;
+    public JTable WatchlistTable;
+    public JTable MovieInfo;
+    public JPanel panel1;
+    public JPanel panel2;
+    public JLabel Label;
+    public JButton button1;
+    public JButton button2;
 
     public Watchlist(InfoHolder infoHolder, Connection connection, DataEntry dataEntry) {
         this.infoHolder = infoHolder;
@@ -22,17 +26,35 @@ public class Watchlist extends JPanel{
         this.dataEntry = dataEntry;
         JTextField movieid = new JTextField(4);
         JTextField newrating = new JTextField(2);
+        JTextField addwatchlist = new JTextField(7);
+        JTextField addcustomer = new JTextField(4);
+        JTextField adduser = new JTextField(1);
+        JTextField addmedia = new JTextField(4);
+        JTextField addmediatype = new JTextField(1);
+        JTextField addrating = new JTextField(1);
+        JTextField addprogress = new JTextField(1);
         WatchlistTable = new JTable();
         MovieInfo = new JTable();
         panel1 = new JPanel();
+        panel2 = new JPanel();
         Label = new JLabel("---------- mediaid | Your rating | Progress (%) | Movie title | Release year | Average rating | Length (minutes) | Country ----------");
         button1 = new JButton("Update Your Rating");
+        button2 = new JButton("Add to Watchlist");
         add(Label);
         add(WatchlistTable);
         add(MovieInfo);
         add(movieid);
         add(newrating);
         add(button1);
+        add(panel2, BorderLayout.SOUTH);
+        panel2.add(addwatchlist);
+        panel2.add(addcustomer);
+        panel2.add(adduser);
+        panel2.add(addmedia);
+        panel2.add(addmediatype);
+        panel2.add(addrating);
+        panel2.add(addprogress);
+        panel2.add(button2);
 
         button1.addActionListener(new ActionListener() {
             @Override
@@ -52,6 +74,33 @@ public class Watchlist extends JPanel{
                 }
                 catch(SQLException d){
                     d.printStackTrace();
+                }
+            }
+        });
+
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String watchlistid = addwatchlist.getText();
+                String customerid = addcustomer.getText();
+                String user = adduser.getText();
+                String mediaid = addmedia.getText();
+                String mediatype = addmediatype.getText();
+                String rating = addrating.getText();
+                String progress = addprogress.getText();
+
+                try {
+                    PreparedStatement st2 = connection.prepareStatement("INSERT INTO Watchlist (watchlistid, customerid, userprofile, mediaid, media_type, rating, progress) VALUES(?,?,?,?,?,?,?)");
+                    st2.setInt(1, Integer.parseInt(watchlistid));
+                    st2.setInt(2, Integer.parseInt(customerid));
+                    st2.setString(3, user);
+                    st2.setInt(4, Integer.parseInt(mediaid));
+                    st2.setString(5, mediatype);
+                    st2.setInt(6, Integer.parseInt(rating));
+                    st2.setInt(7, Integer.parseInt(progress));
+                }
+                catch(SQLException w){
+                    w.printStackTrace();
                 }
             }
         });

@@ -6,6 +6,7 @@ public class InfoHolder {
     private char userProfile;
     private ArrayList<String> profile_names;
     private ArrayList<Character> userProfiles;
+    private int monthplancost;
 
 
     public InfoHolder() {
@@ -14,6 +15,7 @@ public class InfoHolder {
         userProfile = 'z';
         profile_names = new ArrayList<>();
         userProfiles = new ArrayList<>();
+        monthplancost = 0;
 
     }
 
@@ -67,6 +69,21 @@ public class InfoHolder {
 
     public ArrayList<String> getProfile_names() {
         return profile_names;
+    }
+
+    public void setMonthplancost(String monthplan) {
+        if (monthplan.compareTo("Family")==0) {
+            this.monthplancost =  99;
+        }
+        else if (monthplan.compareTo("Couple")==0) {
+            this.monthplancost =  69;
+        }
+        else if (monthplan.compareTo("Individual")==0) {
+            this.monthplancost =  49;
+        }
+    }
+    public int getMonthplancost() {
+        return monthplancost;
     }
 
 }

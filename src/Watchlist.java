@@ -12,18 +12,25 @@ public class Watchlist extends JPanel{
     private Connection connection;
     private InfoHolder infoHolder;
     private DataEntry dataEntry;
-    public JTable WatchlistTable;
     public JTable MovieInfo;
-    public JPanel panel1;
-    public JPanel panel2;
-    public JLabel Label;
-    public JButton button1;
-    public JButton button2;
+    //public JTable WatchlistTable;
+    //public JPanel panel1;
+    //public JPanel panel2;
+    //public JLabel Label;
+    //public JButton button1;
+    //public JButton button2;
 
     public Watchlist(InfoHolder infoHolder, Connection connection, DataEntry dataEntry) {
         this.infoHolder = infoHolder;
         this.connection = connection;
         this.dataEntry = dataEntry;
+        JTable WatchlistTable = new JTable();
+        JPanel panel1 = new JPanel();
+        JPanel panel2 = new JPanel();
+        JLabel Label = new JLabel();
+        JButton button1 = new JButton();
+        JButton button2 = new JButton();
+        JButton button3 = new JButton();
         JTextField movieid = new JTextField(4);
         JTextField newrating = new JTextField(2);
         JTextField addwatchlist = new JTextField(7);
@@ -33,6 +40,7 @@ public class Watchlist extends JPanel{
         JTextField addmediatype = new JTextField(1);
         JTextField addrating = new JTextField(1);
         JTextField addprogress = new JTextField(1);
+        JTextField removecustomer = new JTextField(4);
         WatchlistTable = new JTable();
         MovieInfo = new JTable();
         panel1 = new JPanel();
@@ -40,12 +48,16 @@ public class Watchlist extends JPanel{
         Label = new JLabel("---------- mediaid | Your rating | Progress (%) | Movie title | Release year | Average rating | Length (minutes) | Country ----------");
         button1 = new JButton("Update Your Rating");
         button2 = new JButton("Add to Watchlist");
+        button3 = new JButton("Remove from Watchlist");
         add(Label);
         add(WatchlistTable);
         add(MovieInfo);
         add(movieid);
         add(newrating);
         add(button1);
+        add(panel1, BorderLayout.NORTH);
+        panel1.add(removecustomer);
+        panel1.add(button3);
         add(panel2, BorderLayout.SOUTH);
         panel2.add(addwatchlist);
         panel2.add(addcustomer);
@@ -101,6 +113,21 @@ public class Watchlist extends JPanel{
                 }
                 catch(SQLException w){
                     w.printStackTrace();
+                }
+            }
+        });
+
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String watchlistid = removecustomer.getText();
+
+                try {
+                    PreparedStatement st3 = connection.prepareStatement("DELETE FROM Watchlist WHERE watchlistid=?");
+                    st3.setInt(1, Integer.parseInt(watchlistid));
+                    st3.executeQuery();
+                } catch (SQLException rw){
+                    rw.printStackTrace();
                 }
             }
         });

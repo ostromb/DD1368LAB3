@@ -30,6 +30,7 @@ public class Watchlist extends JPanel{
         JTable WatchlistTable = new JTable();
         JPanel panel1 = new JPanel();
         JPanel panel2 = new JPanel();
+        JPanel panel3 = new JPanel();
         JLabel Label = new JLabel();
         JButton button1 = new JButton();
         JButton button2 = new JButton();
@@ -53,15 +54,18 @@ public class Watchlist extends JPanel{
         button2 = new JButton("Add to Watchlist");
         button3 = new JButton("Remove from Watchlist");
         add(Label);
-        add(WatchlistTable);
+        panel3.add(WatchlistTable);
         add(MovieInfo);
         //add(movieid);
         //add(newrating);
         //add(button1);
-        add(panel1, BorderLayout.NORTH);
+        setLayout(new BorderLayout());
+        add(panel3, BorderLayout.WEST);
+        add(panel2, BorderLayout.CENTER);
+        add(panel1, BorderLayout.EAST);
         panel1.add(removewatchlist);
         panel1.add(button3);
-        add(panel2, BorderLayout.SOUTH);
+
         panel2.add(addwatchlist);
         panel2.add(addcustomer);
         panel2.add(adduser);
@@ -70,6 +74,14 @@ public class Watchlist extends JPanel{
         panel2.add(addrating);
         panel2.add(addprogress);
         panel2.add(button2);
+
+        try {
+            PreparedStatement st1 = connection.prepareStatement("SELECT mediaid, watchlist.rating, watchlist.progress, movies.name, movies.year, movies.rating, movies.length, movies.country FROM watchlist INNER JOIN movies ON mediaid=movieid WHERE customerid=? AND userprofile=?");
+            st1.setInt(1, infoHolder.getId());
+            st1.setString(2, "" + infoHolder.getUserProfile());
+            ResultSet rs1 = st1.executeQuery();
+
+            WatchlistTable.setModel(DbUtils.resultSetToTableModel(rs1));
 
         button1.addActionListener(new ActionListener() {
             @Override
@@ -86,14 +98,18 @@ public class Watchlist extends JPanel{
                     st.setString(3, profile);
                     st.setInt(4, Integer.parseInt(watchid));
                     st.executeQuery();
+
                 }
+
+
                 catch(SQLException d){
                     d.printStackTrace();
                 }
             }
         });
 
-        button2.addActionListener(new ActionListener() {
+            JTable finalWatchlistTable = WatchlistTable;
+            button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String watchlistid = addwatchlist.getText();
@@ -113,7 +129,16 @@ public class Watchlist extends JPanel{
                     st2.setString(5, mediatype);
                     st2.setInt(6, Integer.parseInt(rating));
                     st2.setInt(7, Integer.parseInt(progress));
-                    st2.executeQuery();
+                    st2.executeUpdate();
+                    panel3.removeAll();
+
+                    PreparedStatement st1 = connection.prepareStatement("SELECT mediaid, watchlist.rating, watchlist.progress, movies.name, movies.year, movies.rating, movies.length, movies.country FROM watchlist INNER JOIN movies ON mediaid=movieid WHERE customerid=? AND userprofile=?");
+                    st1.setInt(1, infoHolder.getId());
+                    st1.setString(2, "" + infoHolder.getUserProfile());
+                    ResultSet rs1 = st1.executeQuery();
+
+                    finalWatchlistTable.setModel(DbUtils.resultSetToTableModel(rs1));
+                    panel3.add(finalWatchlistTable);
                 }
                 catch(SQLException w){
                     w.printStackTrace();
@@ -126,27 +151,30 @@ public class Watchlist extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 String media = removewatchlist.getText();
                 Integer customer = infoHolder.getId();
-                String profile = infoHolder.getProfile();
+                Character profile = infoHolder.getUserProfile();
 
                 try {
                     PreparedStatement st3 = connection.prepareStatement("DELETE FROM Watchlist WHERE mediaid=? AND customerid=? AND userprofile=?");
                     st3.setInt(1, Integer.parseInt(media));
                     st3.setInt(2, customer);
-                    st3.setString(3, profile);
-                    st3.executeQuery();
+                    st3.setString(3, "" + profile);
+                    st3.executeUpdate();
+                    panel3.removeAll();
+
+                    PreparedStatement st1 = connection.prepareStatement("SELECT mediaid, watchlist.rating, watchlist.progress, movies.name, movies.year, movies.rating, movies.length, movies.country FROM watchlist INNER JOIN movies ON mediaid=movieid WHERE customerid=? AND userprofile=?");
+                    st1.setInt(1, infoHolder.getId());
+                    st1.setString(2, "" + infoHolder.getUserProfile());
+                    ResultSet rs1 = st1.executeQuery();
+
+                    finalWatchlistTable.setModel(DbUtils.resultSetToTableModel(rs1));
+                    panel3.add(finalWatchlistTable);
                 } catch (SQLException rw){
                     rw.printStackTrace();
                 }
             }
         });
 
-        try {
-            PreparedStatement st1 = connection.prepareStatement("SELECT mediaid, watchlist.rating, watchlist.progress, movies.name, movies.year, movies.rating, movies.length, movies.country FROM watchlist INNER JOIN movies ON mediaid=movieid WHERE customerid=? AND userprofile=?");
-            st1.setInt(1, infoHolder.getId());
-            st1.setString(2, "" + infoHolder.getUserProfile());
-            ResultSet rs1 = st1.executeQuery();
 
-            WatchlistTable.setModel(DbUtils.resultSetToTableModel(rs1));
         }
         catch (SQLException e) {
         JOptionPane.showMessageDialog(null, e);
